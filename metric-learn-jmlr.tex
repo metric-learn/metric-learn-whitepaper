@@ -10,6 +10,9 @@
 
 \usepackage{jmlr2e}
 \usepackage{minted}
+\usepackage[demo]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage[colorinlistoftodos]{todonotes}
 
 % Definitions of handy macros can go here
@@ -70,33 +73,54 @@ It can be installed from the Python Package Index (PyPI), on python 2.7 and 3.5 
 
 \section{Available algorithms}
 
-\texttt{metric-learn} contains most of the highly cited Mahalanobis metric learning algorithms. Here is a list of the algorithms contained in \texttt{metric-learn}:
+\texttt{metric-learn} contains most of the highly cited Mahalanobis metric learning algorithms. 
+
+\subsection{Mahalanobis metric learning}
+Mahalanobis learning algorithms learn a 
+
+
+Here is a list of the algorithms contained in \texttt{metric-learn}:
+\subsection{Supervised Metric Learning algorithms}
+Supervised algorithms learns a metric that brings closer together points from the same class and spreads further away points from a different class.
 \begin{itemize}
-    \item Supervised Metric Learning algorithms: 
-    Supervised algorithms learns a metric that brings closer together points from the same class and spreads further away points from a different class.
-    \begin{itemize}
-        \item NCA: Neighborhood Components Analysis
-        \item LMNN: Large Margin Nearest Neighbors
-        \item RCA: Relative Components Analysis
-        \item LFDA: Local Fisher Discriminant Analysis
-    \end{itemize}
-    \item Weakly Supervised Metric Learning algorithms:
-    Weakly Supervised algorithms use less information than the previous algorihtms: they only take tuple of points and possibly a corresponding label. See below for more concrete examples of algorithms learning on tuples.
-    \begin{itemize}
-        \item Pairs Learners: 
-        Pairs learners take as input pair of points, and a corresponding label indicating whether the two points are similar or not. They will learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other.
-        \begin{itemize}
-            \item MMC: Mahalanobis Metric for Clustering
-            \item SDML: Sparse High-Dimensional Metric Learning (SDML)
-            \item ITML: Information Theoretic Metric Learning (ITML)
-        \end{itemize}
-        \item Quadruplets Learners: 
-        Quadruplets learners take as input quadruplets of points. They learn a metric that brings the two first points of each quadruplet closer than the two last points are.
-        \begin{itemize}
-            \item LSML: Metric Learning from Relative Comparisons by Minimizing Squared Residual
-        \end{itemize}
-    \end{itemize}
+    \item NCA: Neighborhood Components Analysis
+    \item LMNN: Large Margin Nearest Neighbors
+    \item RCA: Relative Components Analysis
+    \item LFDA: Local Fisher Discriminant Analysis
 \end{itemize}
+\subsection{Weakly Supervised Metric Learning algorithms}
+Weakly Supervised algorithms use less information than the previous algorihtms: they only take tuple of points and possibly a corresponding label. See below for more concrete examples of algorithms learning on tuples.
+    \subsubsection{Pairs Learners} 
+    Pairs learners take as input pair of points, and a corresponding label indicating whether the two points are similar or not. They will learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other.
+    \begin{itemize}
+        \item MMC: Mahalanobis Metric for Clustering
+        \item SDML: Sparse High-Dimensional Metric Learning (SDML)
+        \item ITML: Information Theoretic Metric Learning (ITML)
+    \end{itemize}
+    
+    \begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{pairs_without_metric.png}
+  \caption{Original points, before metric learning}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{pairs_with_metric.png}
+  \caption{Points after metric learning (ITML)}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Metric learning with pairwise constraints}
+\label{fig:test}
+\end{figure}
+    
+    \subsubsection{Quadruplets Learners}
+    Quadruplets learners take as input quadruplets of points. They learn a metric that brings the two first points of each quadruplet closer than the two last points are.
+    \begin{itemize}
+        \item LSML: Metric Learning from Relative Comparisons by Minimizing Squared Residual
+    \end{itemize}
 
 \todo[inline]{Mention and link documentation}
 

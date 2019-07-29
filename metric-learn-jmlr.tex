@@ -41,7 +41,7 @@
        \addr \todo[inline]{TODO}
        \AND
        \name Yuan Tang \email terrytangyuan@gmail.com \\
-       \addr \todo[inline]{TODO}
+       \addr Ant Financial, United States
        \AND
        \name Nathalie Vauquier \email nathalie.vauquier@inria.fr \\
        \addr INRIA, France
@@ -174,7 +174,7 @@ The first possibility to learn this metric is from class supervision. We can lea
 % \paragraph{Weakly Supervised Metric Learning algorithms}
 % Weakly Supervised algorithms use less information than the previous algorithms: they only take tuple of points and possibly a corresponding label. See below for more concrete examples of algorithms learning on tuples.
 \subparagraph{Pairs Learners} 
-Another way is to have pair of points as inputs, and a corresponding label indicating whether the two points are similar or not. We can then learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other. For instance, we could want to put closer together in the embedding space images from the same person (i.e. similar), and further away images from a different person (i.e. dissimilar) (see figure \ref{fig:pairs}). Currently, \texttt{metric-learn} contains the following algorithms for pairs supervision: Mahalanobis Metric for Clustering (MMC) (\cite{Xiang08}), Sparse High-Dimensional Metric Learning (SDML) (\cite{Qi09}), Information Theoretic Metric Learning (ITML) (\cite{Davis07}).
+Another way is to have pair of points as inputs, and a corresponding label indicating whether the two points are similar or not. We can then learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other. In practice, this is a much easier type of supervised task to crowd source in particular when there are many labels, since agents will only need to say whether images are similar or not, and will not have to assign a label in a huge list of those. For instance, we could want to put closer together in the embedding space images from the same person (i.e. similar), and further away images from a different person (i.e. dissimilar) (see figure \ref{fig:pairs}). Currently, \texttt{metric-learn} contains the following algorithms for pairs supervision: Mahalanobis Metric for Clustering (MMC) (\cite{Xiang08}), Sparse High-Dimensional Metric Learning (SDML) (\cite{Qi09}), Information Theoretic Metric Learning (ITML) (\cite{Davis07}).
     
 
     
@@ -198,7 +198,7 @@ Another way is to have pair of points as inputs, and a corresponding label indic
 % \end{figure}
     
 \subparagraph{Quadruplets Learners}
-The last possibility to learn a metric in \texttt{metric-learn} currently is to take as input quadruplets of points. We will learn a metric that brings the two first points of each quadruplet closer than the two last points are. This can be used for instance to learn a metric space in which closer points have closer values of a given attributes. In figure \ref{fig:quadruplets} for instance, we want to learn a metric that puts closer together people from approximately the same age. Currently the only algorithm in \texttt{metric-learn} for learning on quadruplets is Metric Learning from Relative Comparisons by Minimizing Squared Residual (LSML) (\cite{Liu12}).
+The last possibility to learn a metric in \texttt{metric-learn} currently is to take as input quadruplets of points. We will learn a metric that brings the two first points of each quadruplet closer than the two last points are. This can be used for instance to learn a metric space in which closer points have closer values of a given attributes. This is very useful if the attribute is not binary (e.g. same person/not same person), like in pairs learning, but is for example continuous (e.g. similar age, very different age, not much different age). In figure \ref{fig:quadruplets} for instance, we want to learn a metric that puts closer together people from approximately the same age. Currently the only algorithm in \texttt{metric-learn} for learning on quadruplets is Metric Learning from Relative Comparisons by Minimizing Squared Residual (LSML) (\cite{Liu12}).
 
 
 
@@ -232,8 +232,8 @@ The last possibility to learn a metric in \texttt{metric-learn} currently is to 
      
           \begin{tabular}{c}
      \texttt{quadruplets} \\ \hline \\
-     \includegraphics[scale=0.15]{Kate_Winslet_0001.jpg} \includegraphics[scale=0.15]{Nicole_Kidman_0001.jpg} \includegraphics[scale=0.15]{Daniel_Radcliffe_0001.jpg} \includegraphics[scale=0.15]{Kirk_Douglas_0001.jpg} \\
-          \includegraphics[scale=0.15]{Leonardo_DiCaprio_0001.jpg} \includegraphics[scale=0.15]{Angelina_Jolie_0001.jpg} \includegraphics[scale=0.15]{Daryl_Sabara_0001.jpg} \includegraphics[scale=0.15]{Carl_Reiner_0002.jpg} \\
+     D(\includegraphics[scale=0.15]{Kate_Winslet_0001.jpg}, \includegraphics[scale=0.15]{Nicole_Kidman_0001.jpg}) < D\includegraphics[scale=0.15]{Daniel_Radcliffe_0001.jpg}, \includegraphics[scale=0.15]{Kirk_Douglas_0001.jpg}) \\
+        D(  \includegraphics[scale=0.15]{Leonardo_DiCaprio_0001.jpg}, \includegraphics[scale=0.15]{Angelina_Jolie_0001.jpg}) <   D(\includegraphics[scale=0.15]{Daryl_Sabara_0001.jpg},  \includegraphics[scale=0.15]{Carl_Reiner_0002.jpg}) \\
 \end{tabular}
     
      
@@ -301,7 +301,7 @@ In conclusion, we presented a scikit-learn compatible package for metric-learnin
 \acks
 
 We would like to be particularly thankful to Inria for funding two years of development of the package. Also we would like to thanks \texttt{scikit-learn} developers for fruitful discussions, assistance for developing the new API, and funding for conference attending.
-\todo[inline]{reformulate + other acknowledgments}
+\todo[inline]{reformulate + "'(t    other acknowledgments}
 
 %  The quality of comparison to previous (if any) related implementations, w.r.t. run-time, memory requirements, features, to explain that significant progress has been made. 
 

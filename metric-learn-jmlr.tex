@@ -171,8 +171,8 @@ Metric learning algorithms can be classified according to the form of data super
 % \end{figure}
 % \paragraph{Weakly Supervised Metric Learning algorithms}
 % Weakly Supervised algorithms use less information than the previous algorithms: they only take tuple of points and possibly a corresponding label. See below for more concrete examples of algorithms learning on tuples.
-\item \textbf{Pair learners} take as input a set of pairs of points with a pair label indicating whether the two points are similar or not. They aim to learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other. Such weak suIn many applications, this weaker supervision can be can be an easier type of supervision to collect, in particular when there are many labels. %, since annotators will only need to say whether images are similar or not, and will not have to assign a label in a huge list of those.
-For instance, it is much easier for an annotator to decide whether two face images correspond to the same person than to match a face to its identity among a large number of people (see Figure~\ref{fig:pairs}). 
+\item \textbf{Pair learners} take as input a set of pairs of points with a pair label indicating whether the two points are similar or not. They aim to learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other. Such weak supervision is often simpler to collect than class labels in applications when there are many labels. %, since annotators will only need to say whether images are similar or not, and will not have to assign a label in a huge list of those.
+For instance, an annotator can easily decide whether two face images correspond to the same person while it can be difficult to match a face to its identity among a large number of people (see Figure~\ref{fig:pairs}). 
 % \begin{figure}[H]
 % \centering
 % \begin{subfigure}{.5\textwidth}
@@ -190,15 +190,14 @@ For instance, it is much easier for an annotator to decide whether two face imag
 % \caption{Metric learning with pairwise constraints}
 % \label{fig:test}
 % \end{figure}
-\item \textbf{Quadruplet Learners.}
-The last possibility to learn a metric in \texttt{metric-learn} is to take as input quadruplets of points. We will learn a metric that brings the two first points of each quadruplet closer than the two last points. This can be used for instance to learn a metric space in which closer points have closer values of a given attributes. This is very useful if the attribute is not binary like in pair supervision (e.g. same person/not same person), but is rather continuous and difficult to annotate precisely (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}).
+\item \textbf{Quadruplet Learners} take as input quadruplets of points and aim to learn a metric that brings the two first points of each quadruplet closer than the two last points. This can be useful to learn a metric space in which closer points have closer values of an attribute that is not binary like in pair supervision (e.g. same person/not same person) but rather continuous and difficult to annotate precisely (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}).
 %for instance, we want to learn a metric that puts closer together people from approximately the same age.
 \end{itemize}
 
 
 
 
-\begin{figure}[H]
+\begin{figure}[t]
   \begin{subfigure}
      \includegraphics[scale=0.2]{labels.pdf}
      \label{fig:full}
@@ -211,7 +210,7 @@ The last possibility to learn a metric in \texttt{metric-learn} is to take as in
      \includegraphics[scale=0.2]{quadruplets.pdf}
      \label{fig:quadruplets}
   \end{subfigure}
-  \caption{Different types of supervision for metric learning. (\subref{fig:full}) Full supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make the two leftmost samples (here, people of similar age) to be closer than the two rightmost samples (of bigger age difference). (images are the funneled Labeled Faces in the Wild dataset \url{http://vis-www.cs.umass.edu/lfw/} \cite{Huang12}) (\aurelien{designing the 3 figures in inkscape to avoid the ugly tables would be better}}\aurelien{should also acknowledge dataset from which these images are taken}
+  \caption{Different types of supervision for metric learning. (\subref{fig:full}) Full supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make the two leftmost samples (here, people of similar age) to be closer than the two rightmost samples (of bigger age difference). Images are taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}
   \label{fig:contour}
 \end{figure}
 
@@ -219,13 +218,13 @@ The last possibility to learn a metric in \texttt{metric-learn} is to take as in
 
 \section{Overview of the Package}
 
-\aurelien{update links, mention scikit-learn-contrib}
+The current release of \texttt{metric-learn} (v.0.5.0) can be installed from the Python Package Index (PyPI), for python 2.7 and 3.5 or later. The source code is available on GitHub at \url{http://github.com/scikit-learn-contrib/metric-learn} and is free of use, provided under the MIT licence. A detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.
 
-\texttt{metric-learn} only relies on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}.
-%\footnote{An optional dependency with \texttt{skggm} (\cite{skggm}) can be installed in order to use a more stable solver when using the LSML algorithm from the package.}
-The current release (v.0.5.0) can be installed from the Python Package Index (PyPI), for python 2.7 and 3.5 or later. The source code is available on GitHub at \url{http://github.com/scikit-learn-contrib/metric-learn}. The development is collaborative and open to all contributors through the usual GitHub framework (issues and pull requests). The code is free of use, provided under the MIT licence. The interest of the package from the community is clear, since the project has been starred more than 740 times and forked more than 170 times at the time of writing.
-A detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}. The quality of the code is ensured by a thorough test coverage (96\% as of July 2019). Every new contribution to the code is automatically checked by a continuous integration platform that ensures a minimal test coverage of the added code, a minimal variation in test coverage of the overall project, and syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
-Currently, the following algorithms are implemented in \texttt{metric-learn}: for supervised metric learning: Neighborhood Components Analysis (NCA) (\cite{Goldberger04}), Large Margin Nearest Neighbors (LMNN) (\cite{Weinberger09}), Relative Components Analysis (RCA) (\cite{Shental02}), Local Fisher Discriminant Analysis (LFDA) (\cite{Sugiyama07}) and Metric Learning for Kernel Regression (MLKR) (\cite{Weinberger07}). Note that the latter is designed for regression problems and takes as input continuous labels. \footnote{\texttt{metric-learn} also provides an algorithm for learning on chunklets of data (groups of points from the same class)}\aurelien{maybe add footnote for RCA?}For pair metric learners: Mahalanobis Metric for Clustering (MMC) (\cite{Xiang08}), Sparse High-Dimensional Metric Learning (SDML) (\cite{Qi09}), Information Theoretic Metric Learning (ITML) (\cite{Davis07}). For learning on quadruplets: Metric Learning from Relative Comparisons by Minimizing Squared Residual (LSML) (\cite{Liu12}). The details description of these algorithms can be found in the sphinx documentation.
+
+\texttt{metric-learn} only relies on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}. The development is collaborative and open to all contributors through the usual GitHub framework (issues and pull requests). The interest of the package from the community is clear: it has been included in \texttt{scikit-learn-contrib} and, at the time of writing, has been starred more than 740 times and forked more than 170 times.
+The quality of the code is ensured by a thorough test coverage (96\% as of July 2019). Every new contribution to the code is automatically checked by a continuous integration platform that ensures a minimal test coverage of the added code, a minimal variation in test coverage of the overall project, and syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
+
+Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms from the literature. Supervised learners include Neighborhood Components Analysis (NCA) (\cite{Goldberger04}), Large Margin Nearest Neighbors (LMNN) (\cite{Weinberger09}), Relative Components Analysis (RCA)\footnote{Strictly speaking, RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points from the same class).} (\cite{Shental02}), Local Fisher Discriminant Analysis (LFDA) (\cite{Sugiyama07}) and Metric Learning for Kernel Regression (MLKR) (\cite{Weinberger07}). Note that the latter is designed for regression problems and takes as input continuous labels. Pair learners i Mahalanobis Metric for Clustering (MMC) (\cite{Xiang08}), Sparse High-Dimensional Metric Learning (SDML) (\cite{Qi09}), Information Theoretic Metric Learning (ITML) (\cite{Davis07}). For learning on quadruplets: Metric Learning from Relative Comparisons by Minimizing Squared Residual (LSML) (\cite{Liu12}). The details description of these algorithms can be found in the sphinx documentation.
 
 \aurelien{mention flake8 compliance and checks}
 

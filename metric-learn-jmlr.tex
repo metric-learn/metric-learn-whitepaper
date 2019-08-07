@@ -270,6 +270,9 @@ Supervised metric learners further inherit from \texttt{scikit-learn}'s base cla
 Weakly supervised algorithms learning from pairs or quadruplets are similar to \texttt{scikit-learn} classifiers, but they \texttt{fit} and \texttt{predict} on a set of tuples. This is passed as a 3D array (rather than a 2D array of points). Tuples can be pairs or quadruplets depending on the algorithm.
 Pairs learners take as input an array-like \texttt{pairs} of shape \texttt{(n\_pairs, 2, n\_features)}, as well as an array-like \texttt{y} of shape \texttt{(n\_pairs,)} giving labels (similar or dissimilar) for each pair. In order to \texttt{predict} the labels of new pairs, one needs to set a threshold on the distance value. This threshold can be set manually, or automatically calibrated (at fit time or afterwards on a validation set) to optimize a given performance score such as accuracy or F1-score using the method \texttt{calibrate\_threshold}.
 Quadruplets learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet the two first elements are the ones we want to be closer than the two last ones. They can naturally \texttt{predict} whether a new quadruplet is in the right order or not by comparing the two pairwise distances.
+These design choices allow to use \texttt{scikit-learn}'s scoring functions out of the box, and therefore all routines for model selection, including the \texttt{GridSearchCV} object.  To illustrate this, we refer to the following code snippet which computes the cross validation score of ITML on pairs from Labeled Faces in the Wild \citep{Huang12}.
+
+% Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).
 
 \begin{minted}[%linenos=TRUE,
 fontsize=\footnotesize]{python}
@@ -281,8 +284,6 @@ fontsize=\footnotesize]{python}
 \end{minted}
 % mmc.predict(pairs)
 \william{warning: the $*\_$ syntax is only compatible in python 3 I think, is it OK ? }
-
-This allows to use out of the box \texttt{scikit-learn}'s scoring functions, and therefore all routines for model selection, including the \texttt{GridSearchCV} object. Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).
 
 
 % \begin{minted}{python}

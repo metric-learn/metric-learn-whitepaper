@@ -27,8 +27,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="-84.143307"
-     inkscape:cy="-39.344154"
+     inkscape:cx="7.0419955"
+     inkscape:cy="81.874152"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -105,25 +105,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="30.293556"
-       y="86.164879"
+       x="32.698982"
+       y="84.769402"
        id="text108"><tspan
          sodipodi:role="line"
          id="tspan106"
-         x="30.293556"
-         y="86.164879"
-         style="stroke-width:0.26458332">D(       ,       ) &lt; D(        ,       )</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="30.59404"
-       y="111.18863"
-       id="text108-7"><tspan
-         sodipodi:role="line"
-         id="tspan106-5"
-         x="30.59404"
-         y="111.18863"
-         style="stroke-width:0.26458332">D(       ,       ) &lt; D(        ,       )</tspan></text>
+         x="32.698982"
+         y="84.769402"
+         style="font-size:5.64444447px;stroke-width:0.26458332">D  (        ,     ,             )      &lt;     D(               ,              )</tspan></text>
     <image
        y="73"
        x="44.317432"
@@ -140,5 +129,16 @@
        preserveAspectRatio="none"
        height="20"
        width="20" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="32.677696"
+       y="109.6404"
+       id="text108-3"><tspan
+         sodipodi:role="line"
+         id="tspan106-6"
+         x="32.677696"
+         y="109.6404"
+         style="font-size:5.64444447px;stroke-width:0.26458332">D  (        ,     ,             )      &lt;     D(               ,              )</tspan></text>
   </g>
 </svg>

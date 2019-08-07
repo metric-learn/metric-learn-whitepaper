@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="81.628273mm"
+   height="44.871384mm"
+   viewBox="0 0 81.628273 44.871384"
    version="1.1"
    id="svg3931"
    inkscape:version="0.92.4 (unknown)"
@@ -27,8 +27,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="192.81425"
-     inkscape:cy="535.15775"
+     inkscape:cx="68.671353"
+     inkscape:cy="17.32862"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -52,7 +52,8 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-32.846142,-115.11966)">
     <image
        y="115.11966"
        x="60.695786"
@@ -115,12 +116,12 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot44"
-       style="fill:black;fill-opacity:1;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"><flowRegion
          id="flowRegion46"><rect
            id="rect48"
            width="425"
            height="386"
            x="311"
            y="392.51968" /></flowRegion><flowPara
-         id="flowPara50"></flowPara></flowRoot>  </g>
+         id="flowPara50" /></flowRoot>  </g>
 </svg>

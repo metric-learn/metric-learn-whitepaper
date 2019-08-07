@@ -171,9 +171,8 @@ Metric learning algorithms can be classified according to the form of data super
 % \end{figure}
 % \paragraph{Weakly Supervised Metric Learning algorithms}
 % Weakly Supervised algorithms use less information than the previous algorithms: they only take tuple of points and possibly a corresponding label. See below for more concrete examples of algorithms learning on tuples.
-\item \textbf{Pair learners.} 
-Another way is to have pair of points as inputs, and a corresponding label indicating whether the two points are similar or not. We can then learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other. In many applications, this can be a much easier type of supervision to collect, in particular when there are many labels. %, since annotators will only need to say whether images are similar or not, and will not have to assign a label in a huge list of those.
-For instance, it is much easier for an annotator to decide whether two images correspond to the same person than to associate an individual image to the right identity among a large number of people (see Figure~\ref{fig:pairs}). 
+\item \textbf{Pair learners} take as input a set of pairs of points with a pair label indicating whether the two points are similar or not. They aim to learn a metric that brings points from a similar pair closer together, and points from a dissimilar pair further away from each other. Such weak suIn many applications, this weaker supervision can be can be an easier type of supervision to collect, in particular when there are many labels. %, since annotators will only need to say whether images are similar or not, and will not have to assign a label in a huge list of those.
+For instance, it is much easier for an annotator to decide whether two face images correspond to the same person than to match a face to its identity among a large number of people (see Figure~\ref{fig:pairs}). 
 % \begin{figure}[H]
 % \centering
 % \begin{subfigure}{.5\textwidth}
@@ -234,7 +233,7 @@ Currently, the following algorithms are implemented in \texttt{metric-learn}: fo
 \section{Software Architecture and API}
 
 \aurelien{mention optimization somewhere?}
-\texttt{metric-learn} provides a unified interface to all metric learning algorithms (including the weakly supervised ones that have an input format that differs from the classic machine learning settings) and is designed to be fully compatible with the functionalities of \texttt{scikit-learn} \citep{scikit-learn}. All metric learners in \texttt{metric-learn} inherit from an abstract \texttt{BaseMetricLearner} object, which itself inherits from \texttt{BaseEstimator}. All classes inheriting from \texttt{BaseMetricLearner} should implement two methods, \texttt{get\_metric} and \texttt{score\_pairs}: the former returns a function that computes the distance between two points $u$ and $v$. The latter method computes the distances between a dataset of pairs of points.
+\texttt{metric-learn} provides a unified interface to all metric learning algorithms (including the weakly supervised ones that have an input format that differs from the classic machine learning settings) and is designed to be fully compatible with the functionalities of \texttt{scikit-learn} \citep{scikit-learn}. All metric learners in \texttt{metric-learn} inherit from an abstract \texttt{BaseMetricLearner} object, which itself inherits from scikit-learn's \texttt{BaseEstimator}. All classes inheriting from \texttt{BaseMetricLearner} should implement two methods, \texttt{get\_metric} and \texttt{score\_pairs}: the former returns a function that computes the distance between two points $u$ and $v$. The latter method computes the distances between a dataset of pairs of points.
 \aurelien{score\_pairs and get\_metric should be mentioned here (all metric learners should implement these). In Mahalanobis, just mention they are implemented accordingly (do not delete: TODO: update accordingly mahalanobis}
 % \todo[inline]{Should I talk about the classes etc ? Not useful since they are not visible by the user right ?}
 % \todo[inline]{I think it can be nice, this is not documentation, but explaining how things are coded}
@@ -255,6 +254,7 @@ Supervised metric learners inherit from scikit-learn base class \texttt{Transfor
 %  They can easily be pipelined with nearest neighbors estimators to improve their performance: \texttt{better\_knn = sklearn.pipeline.make\_pipeline(NCA(), KNeighborsClassifier())} (TODO: sth to explain NCA is in metric-learn)
 \aurelien{mention pipelining}
 
+\william{cf. Nathalie's comment: re-introduce weakly supervised metric laerners}
 \paragraph{Weakly Supervised metric learners} 
 % Algorithms that learn on pairs or quadruplets take as input 3D array of shape \texttt{(n\_samples, t, n\_features)} (where...). In other words, sampling one element along the first dimension returns one tuple (e.g. a pair), that is a matrix of t lines corresponding to the t elements in the tuple.
 % This format is what allows all these API choices, since slicing along the 1st dimension

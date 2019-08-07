@@ -199,15 +199,15 @@ For instance, an annotator can easily decide whether two face images correspond 
 
 \begin{figure}[t]
   \begin{subfigure}
-     \includegraphics[scale=0.2]{labels.pdf}
+     \includegraphics[scale=0.5]{labels.pdf}
      \label{fig:full}
 \end{subfigure}
  \begin{subfigure}
-     \includegraphics[scale=0.2]{pairs.pdf}
+     \includegraphics[scale=0.5]{pairs.pdf}
      \label{fig:pairs}
   \end{subfigure}
 \begin{subfigure}
-     \includegraphics[scale=0.2]{quadruplets.pdf}
+     \includegraphics[scale=0.5]{quadruplets.pdf}
      \label{fig:quadruplets}
   \end{subfigure}
   \caption{Different types of supervision for metric learning. (\subref{fig:full}) Full supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make the two leftmost samples (here, people of similar age) to be closer than the two rightmost samples (of bigger age difference). Images are taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}
@@ -224,12 +224,12 @@ The current release of \texttt{metric-learn} (v.0.5.0) can be installed from the
 \texttt{metric-learn} only relies on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}. The development is collaborative and open to all contributors through the usual GitHub framework (issues and pull requests). The interest of the package from the community is clear: it has been included in \texttt{scikit-learn-contrib} and, at the time of writing, has been starred more than 740 times and forked more than 170 times.
 The quality of the code is ensured by a thorough test coverage (96\% as of July 2019). Every new contribution to the code is automatically checked by a continuous integration platform that ensures a minimal test coverage of the added code, a minimal variation in test coverage of the overall project, and syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
 
-Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms from the literature. Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{Strictly speaking, RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points from the same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}. Note that the latter is designed for regression problems and takes as input continuous labels. Pair learners include Mahalanobis Metric for Clustering (MMC) (\cite{Xing2002a}), Information Theoretic Metric Learning (ITML) (\cite{Davis07}) and Sparse High-Dimensional Metric Learning (SDML) (\cite{Qi09}). Finally, the package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual (LSML) (\cite{Liu12}). Detailed descriptions of these algorithms can be found in the package documentation.
+Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms from the literature. Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{Strictly speaking, RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points from the same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}. Note that the latter is designed for regression problems and takes as input continuous labels. Pair learners include Mahalanobis Metric for Clustering \citep[MMC,][]{Xing2002a}, Information Theoretic Metric Learning \citep[ITML,][]{Davis07} and Sparse High-Dimensional Metric Learning \citep[SDML,][]{Qi09}. Finally, the package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}. Detailed descriptions of these algorithms can be found in the package documentation.
 
 \section{Software Architecture and API}
 
-\aurelien{mention optimization somewhere?}
-\texttt{metric-learn} provides a unified interface to all metric learning algorithms (including the weakly supervised ones that have an input format that differs from the classic machine learning settings) and is designed to be fully compatible with the functionalities of \texttt{scikit-learn} \citep{scikit-learn}. All metric learners in \texttt{metric-learn} inherit from an abstract \texttt{BaseMetricLearner} object, which itself inherits from scikit-learn's \texttt{BaseEstimator}. All classes inheriting from \texttt{BaseMetricLearner} should implement two methods, \texttt{get\_metric} and \texttt{score\_pairs}: the former returns a function that computes the distance between two points $u$ and $v$. The latter method computes the distances between a dataset of pairs of points.
+\aurelien{mention optimization somewhere? rule of thumb opt parameters?}
+\texttt{metric-learn} provides a unified interface to all metric learning algorithms, including weakly supervised ones (pair and quadruplet learners) whose input format differs from the classic machine learning setting. It is designed to be fully compatible with the functionalities of \texttt{scikit-learn} \citep{scikit-learn}. We explain here how package is structured. All metric learners in \texttt{metric-learn} inherit from an abstract \texttt{BaseMetricLearner} object, which itself inherits from scikit-learn's \texttt{BaseEstimator}. All classes inheriting from \texttt{BaseMetricLearner} should implement two methods, \texttt{get\_metric} and \texttt{score\_pairs}: the former returns a function that computes the distance between two points $u$ and $v$. The latter method computes the distances between a dataset of pairs of points.
 \aurelien{score\_pairs and get\_metric should be mentioned here (all metric learners should implement these). In Mahalanobis, just mention they are implemented accordingly (do not delete: TODO: update accordingly mahalanobis}
 % \todo[inline]{Should I talk about the classes etc ? Not useful since they are not visible by the user right ?}
 % \todo[inline]{I think it can be nice, this is not documentation, but explaining how things are coded}

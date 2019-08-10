@@ -46,7 +46,7 @@
        \addr INRIA, France
        \AND
        \name CJ Carey \email perimosocordiae@gmail.com \\
-       \addr \aurelien{CJ must put in his affiliation}
+       \addr Google Inc., United States
        \AND
        \name Yuan Tang \email terrytangyuan@gmail.com \\
        \addr Ant Financial, United States
@@ -79,7 +79,7 @@ points. Traditionally, practitioners would choose a standard distance metric
 domain. However, it is often difficult to design metrics that are well-suited
 to the particular data and task of interest.
 % \todo[inline]{probably need to add a sentence explaining what is meant by weak supervision}
-Distance metric learning, or simply metric learning \citep{Bellet15,Kulis13}, aims at
+Distance metric learning, or simply metric learning \citep{Bellet15}, aims at
 automatically constructing task-specific distance metrics from data. A key advantage of metric learning is that it can be applied beyond the standard supervised learning setting (data points associated with labels), in situations where only weaker forms of supervision are available (e.g., pairs of points that should be similar/dissimilar). The learned distance metric can be used to perform retrieval tasks such as finding elements (images, documents) of a database that are semantically closest to a query element. It can also be plugged into other machine learning algorithms, for instance to improve the accuracy of nearest neighbors models (for classification, regression, anomaly detection...) or to bias the clusters found by clustering algorithms towards the intended semantics. Finally, metric learning can be used to perform dimensionality reduction.
 These use-cases highlight the importance of integrating metric learning with the rest of the machine learning pipeline and tools.
 % \todo[inline]{quick presentation of the package: implements several algorithms, with sklearn-compatible API for model selection, model evaluation, pipelining with other estimators. makes metric-learn stands out from other packages (maybe mention a few of them), in particular in the case of weakly supervised algorithms}
@@ -90,7 +90,7 @@ These use-cases highlight the importance of integrating metric learning with the
 % , which is one interesting feature allowed by the metric learning paradigm. 
 Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a prominent machine learning library in Python. This allows for streamlined model selection, evaluation, and pipelining with other estimators.
 % The project is developed collaboratively through GitHub, its code is thoroughly tested using continuous integration tools. It was recently included to \texttt{scikit-learn-contrib}, which hosts high-quality \texttt{scikit-learn}-compatible projects.\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}}
-\aurelien{decide if we include or not a few sentences on positioning wrt other packages}
+%\aurelien{decide if we include or not a few sentences on positioning wrt other packages}
 
 %, which makes \texttt{metric-learn} stand out from other packages, like \texttt{PyDML} \footnote{\url{https://github.com/jlsuarezdiaz/pyDML}}, which mostly focuses on supervised metric learning algorithms.
 % Acknowledgements should go at the end, before appendices and references
@@ -147,6 +147,25 @@ Note that $D_L$ can also be written as $D_L(x, x') = \sqrt{(x - x')^\top M (x - 
 % parameterizations are equivalent. In practice, an algorithm may thus solve
 % the metric learning problem with respect to either :math:`M` or :math:`L`.
 
+% use t to put figure on top (preferred) Thanks ! 
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[t]{0.25\textwidth} % "0.45" donne ici la largeur de l'image
+        \centering \includegraphics[scale=0.45]{labels.pdf}
+        \caption{class supervision}\label{fig:full}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.25\textwidth}
+        \centering \includegraphics[scale=0.45]{pairs.pdf}
+        \caption{pair supervision}\label{fig:pairs}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.40\textwidth}
+        \centering \includegraphics[scale=0.45]{quadruplets.pdf}
+        \caption{quadruplet supervision}\label{fig:quadruplets}
+    \end{subfigure}
+    \caption{Different types of supervision for metric learning %(\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference).
+    illustrated on face image data taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}\label{fig:flowers}
+\end{figure}
+
 Metric learning algorithms can be classified according to the form of data supervision that they need to learn the metric. \texttt{metric-learn} currently implements algorithms that fall into the following categories.
 \emph{Supervised learners} learn from a standard labeled dataset and essentially aim to bring closer together points from the same class while spreading further away points from a different class. For instance, data points could be face images and the class could be the identity of the person (see Figure~\ref{fig:full}). 
 % \todo[inline]{ces figures ne sont pas très vendeuses. je propose de faire une figure conceptuelle en prenant l'exemple des faces expliquant la différence entre le supervisé, les paires et les quadruplets. on peut s'inspirer de \url{http://cedric.cnam.fr/~thomen/papers/Law_ICCV_2013_QWise.pdf}}
@@ -188,7 +207,7 @@ For instance, a human annotator can often quickly decide whether two face images
 % \caption{Metric learning with pairwise constraints}
 % \label{fig:test}
 % \end{figure}
-Finally, \emph{quadruplet learners} take as input quadruplets of points and aim to learn a metric that brings the two first points of each quadruplet closer than the two last points. This can be useful to learn a metric space in which closer points have closer values of an attribute that is not binary like in pair supervision but rather continuous and difficult to annotate precisely (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}).
+Finally, \emph{quadruplet learners} take as input quadruplets of points and aim to learn a metric that brings the two first points of each quadruplet closer than the two last points. This can be used to learn a metric space in which closer points have closer values of an attribute of interest, which may be continuous and difficult to annotate accurately (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}). Quadruplet supervision is also used in problems with a class hierarchy.
 %for instance, we want to learn a metric that puts closer together people from approximately the same age.
 
 
@@ -212,41 +231,25 @@ Finally, \emph{quadruplet learners} take as input quadruplets of points and aim 
 %   \label{fig:contour}
 % \end{figure}
 
-% use t to put figure on top (preferred) Thanks ! 
-\begin{figure}[t]
-    \centering
-    \begin{subfigure}[t]{0.25\textwidth} % "0.45" donne ici la largeur de l'image
-        \centering \includegraphics[scale=0.45]{labels.pdf}
-        \caption{class supervision}\label{fig:full}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.25\textwidth}
-        \centering \includegraphics[scale=0.45]{pairs.pdf}
-        \caption{pair supervision}\label{fig:pairs}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.40\textwidth}
-        \centering \includegraphics[scale=0.45]{quadruplets.pdf}
-        \caption{quadruplet supervision}\label{fig:quadruplets}
-    \end{subfigure}
-    \caption{Different types of supervision for metric learning. (\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference). Images are taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}\label{fig:flowers}
-\end{figure}
+%\aurelien{Fig caption is redundant with the main text. could reduce it.}
 
 \section{Overview of the Package}
 
 The current release of \texttt{metric-learn} (v.0.5.0) can be installed from the Python Package Index (PyPI), for Python 2.7 and 3.5 or later. The source code is available on GitHub at \url{http://github.com/scikit-learn-contrib/metric-learn} and is free of use, provided under the MIT licence. \texttt{metric-learn} only relies on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}. A detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.
-The development is collaborative and open to all contributors through the usual GitHub workflow (issues and pull requests). The interest of the community for the package is shown by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by over 740 stars and 170 forks on GitHub (at the time of writing).
+The development is collaborative and open to all contributors through the usual GitHub workflow (issues and pull requests). The interest of the community for the package is demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its more than 740 stars and 170 forks on GitHub (at the time of writing).
 The quality of the code is ensured by a thorough test coverage (96\% as of July 2019). Every new contribution is automatically checked by a continuous integration platform to enforce sufficient test coverage as well as syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
 
 Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms. Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points of same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}. The latter is designed for regression problems with continuous labels. Pair learners include Mahalanobis Metric for Clustering \citep[MMC,][]{Xing2002a}, Information Theoretic Metric Learning \citep[ITML,][]{Davis07} and Sparse High-Dimensional Metric Learning \citep[SDML,][]{Qi09}. The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}. Detailed descriptions of these algorithms can be found in the package documentation.
 
 \section{Software Architecture and API}
 
-\aurelien{mention optimization somewhere? rule of thumb opt parameters?}
+%\aurelien{mention optimization somewhere? rule of thumb opt parameters?}
 \texttt{metric-learn} provides a unified interface to all metric learning algorithms. %, including 
 %weakly supervised ones (pair and quadruplet learners)
 %those whose input format differs from the classic machine learning setting.
 It is designed to be fully compatible with the functionalities of \texttt{scikit-learn}.
 % We briefly explain how the package is structured.
-All metric learners inherit from an abstract \texttt{BaseMetricLearner} class, which itself inherits from \texttt{scikit-learn}'s \texttt{BaseEstimator}. All classes inheriting from \texttt{BaseMetricLearner} should implement two methods, \texttt{get\_metric} (returning a function that computes the distance, which can be plugged into \texttt{scikit-learn} estimators like \texttt{KMeansClustering}) and \texttt{score\_pairs} (returning the distances between a set of pairs of points in a 3D array format).
+All metric learners inherit from an abstract \texttt{BaseMetricLearner} class, which itself inherits from \texttt{scikit-learn}'s \texttt{BaseEstimator}. All classes inheriting from \texttt{BaseMetricLearner} should implement two methods, \texttt{get\_metric} (returning a function that computes the distance, which can be plugged into \texttt{scikit-learn} estimators like \texttt{KMeansClustering}) and \texttt{score\_pairs} (returning the distances between a set of pairs of points passed as a 3D array).
 % \todo[inline]{Should I talk about the classes etc ? Not useful since they are not visible by the user right ?}
 % \todo[inline]{I think it can be nice, this is not documentation, but explaining how things are coded}
 %\texttt{metric-learn}'s API is designed to be fully compatible with \texttt{scikit-learn} API (\cite{scikit-learn}). 
@@ -263,24 +266,26 @@ Supervised metric learners inherit from \texttt{scikit-learn}'s base class \text
 % This format is what allows all these API choices, since slicing along the 1st dimension
 % While a classical input array \texttt{X} in \texttt{scikit-learn} has shape \texttt{(n\_samples, n\_features)}, an array of tuples has shape \texttt{(n\_tuples, t, n\_features)}, where \texttt{t} is the number of elements in a tuple (e.g. 2 for pairs).
 % Note that \texttt{scikit-learn} accepts arrays in a broad sense, in what they call "array-like" objects. \texttt{metric-learn} too accepts "tuple-like" objects.
-Weakly supervised algorithms (pairs and quadruplets learners) \texttt{fit} and \texttt{predict} on a set of tuples passed as a 3D array. Tuples can be pairs or quadruplets depending on the algorithm.
-Pairs learners take as input an array-like \texttt{pairs} of shape \texttt{(n\_pairs, 2, n\_features)}, as well as an array-like \texttt{y} of shape \texttt{(n\_pairs,)} giving labels (similar or dissimilar) for each pair. In order to \texttt{predict} the labels of new pairs, one needs to set a threshold on the distance value. This threshold can be set manually, or automatically calibrated (at fit time or afterwards on a validation set) to optimize a given performance score such as accuracy or F1-score using the method \texttt{calibrate\_threshold}.
-Quadruplets learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet the two first elements are the ones we want to be closer than the two last ones. They can naturally \texttt{predict} whether a new quadruplet is in the right order or not by comparing the two pairwise distances.
-These design choices allow to use \texttt{scikit-learn}'s scoring functions out of the box, and therefore all routines for model selection, including the \texttt{GridSearchCV} object.  To illustrate this, we refer to the following code snippet which computes the cross validation score of ITML on pairs from Labeled Faces in the Wild \citep{Huang12}.
+Weakly supervised algorithms (pair and quadruplet learners) \texttt{fit} and \texttt{predict} on a set of tuples passed as a 3D array. Tuples can be pairs or quadruplets depending on the algorithm.
+Pair learners take as input an array-like \texttt{pairs} of shape \texttt{(n\_pairs, 2, n\_features)}, as well as an array-like \texttt{y\_pairs} of shape \texttt{(n\_pairs,)} giving labels (similar or dissimilar) for each pair. In order to \texttt{predict} the labels of new pairs, one needs to set a threshold on the distance value. This threshold can be set manually, or automatically calibrated (at fit time or afterwards on a validation set) to optimize a given performance score such as accuracy or F1-score using the method \texttt{calibrate\_threshold}.
+Quadruplet learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet the two first elements are the ones we want to be closer than the two last ones. They can naturally \texttt{predict} whether a new quadruplet is in the right order or not by comparing the two pairwise distances.
+These design choices allow to use \texttt{scikit-learn}'s scoring functions out of the box, and therefore all routines for model selection, including the \texttt{GridSearchCV} object.  To illustrate, the following code snippet computes cross validation scores for ITML (with default parameters) on pairs from Labeled Faces in the Wild \citep{Huang12}.
 % Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).
 \begin{minted}[%linenos=TRUE,
 fontsize=\footnotesize]{python}
->>> from sklearn.datasets import fetch_lfw_pairs
->>> from sklearn.model_selection import cross_val_score, train_test_split
->>> from metric_learn import ITML
->>> _, pairs, y, _, _ = fetch_lfw_pairs(resize=0.2).values()
->>> pairs, _, y, _ = train_test_split(pairs.reshape(2200,2,-1), 2*y-1) 
->>> cross_val_score(ITML(), pairs, y, scoring='roc_auc')
+>>> from sklearn.datasets import fetch_lfw_pairs 
+>>> from sklearn.model_selection import cross_validate, train_test_split 
+>>> from sklearn.decomposition import PCA 
+>>> from metric_learn import ITML 
+>>> pairs, y_pairs = [fetch_lfw_pairs()[key] for key in ['pairs', 'target']]
+>>> pairs = PCA(n_components=25).fit_transform(pairs.reshape(4400, -1)).reshape(-1, 2, 25) 
+>>> pairs, _, y_pairs, _ = train_test_split(pairs, 2*y_pairs-1)  
+>>> cross_validate(ITML(), pairs, y_pairs, scoring='roc_auc', return_train_score=True)
 \end{minted}
 % mmc.predict(pairs)
 %\william{warning: the $*\_$ syntax is only compatible in python 3 I think, is it OK ? }
-\aurelien{remove $*\_$, use AUC, maybe remove rescaling, potentially try other weakly sup algo, prior random really useful}
-\aurelien{try to have one import per line if we can make that fit}
+%\aurelien{remove $*\_$, use AUC, maybe remove rescaling, potentially try other weakly sup algo, prior random really useful}
+%\aurelien{try to have one import per line if we can make that fit}
 
 % \begin{minted}{python}
 % from sklearn.model_selection import GridSearchCV
@@ -288,13 +293,13 @@ fontsize=\footnotesize]{python}
 % model.fit(pairs, y_pairs)
 % \end{minted}
 
-\section{Conclusion and Future Work}
+\section{Future Work}
 
-\texttt{metric-learn} is under active development. We list here promising directions to further improve the package. To scale to large datasets, we would like to implement stochastic solvers (SGD and its variants), forming batches of tuples on the fly to avoid loading all data in memory at once. % We would also like to offer better support to inputs in sparse format.
-We also plan to incorporate new algorithms that provide added value to the package, in particular triplet metric learners and algorithms that can deal with multi-label \citep{liu15} and high-dimensional problems \citep{Liu19}.
+\texttt{metric-learn} is under active development. We list here some promising directions to further improve the package. To scale to large datasets, we would like to implement stochastic solvers (SGD and its variants), forming batches of tuples on the fly to avoid loading all data in memory at once. % We would also like to offer better support to inputs in sparse format.
+We also plan to incorporate new algorithms that provide added value to the package, in particular some that learn from triplet supervision \citep{Schultz2003a}, can deal with multi-label \citep{liu15} and high-dimensional problems \citep{Liu19}, or learn other forms of metrics \citep[e.g., nonlinear ones, bilinear similarities, and multiple local metrics, see][]{Bellet15}.
 %We could also allow metric learn to be used when having multiple labels for each sample, and allow different kind of supervisions, like semi-supervised learning for instance.
 %We could also improve the ease of use by adding more examples and adding toy datasets to play with quickly and see the interest of the weaker forms of supervision. About the overall quality of the software, we intend to improve the continuous integration routines, for instance by ensuring a PEP8 syntax checker is run on every pull request, a continuous integration for the documentation.
-\aurelien{if possible, mention algorithms that learn other metrics (similarity, nonlinear, local..}
+%\aurelien{if possible, mention algorithms that learn other metrics (similarity, nonlinear, local..}
 
 \acks
 

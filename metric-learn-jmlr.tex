@@ -97,7 +97,8 @@ Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a promine
 %The rest of this paper is organized as follows. We first present an overview of the package, followed by a more detailed description of the available algorithms. We then give more details about the API and the software architecture, in particular the compatibility with \texttt{scikit-learn}, and conclude with a discussion of future developments.
 
 % \aurelien{we could put the presentation of metric learning and supervision as Sec 2, and put the implemented algorithms in the overview of the package section as Section 3}
-
+Other packages for metric-learning already exist, however, they have a different focus: \textit{pyDML} only contains supervised metric learning algorithms, and \textit{pytorch-metric-learning} is focused on deep metric learning, with the pytorch framework. 
+\tod[inline]{Talk about the matlab package}
 \section{Background on Metric Learning} \label{metriclearning}
 
 % \todo[inline]{comparison with other packages ? }
@@ -243,7 +244,6 @@ Quadruplet supervision is also used in problems with a class hierarchy.
 % \end{figure}
 
 %\aurelien{Fig caption is redundant with the main text. could reduce it.}
-
 \section{Overview of the Package}
 
 The current release of \texttt{metric-learn} (v.0.5.0) can be installed from the Python Package Index (PyPI), for Python 2.7 and 3.5 or later. 
@@ -259,7 +259,7 @@ Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms
 Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points of same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}.
 The latter is designed for regression problems with continuous labels.
 Pair learners include Mahalanobis Metric for Clustering \citep[MMC,][]{Xing2002a}, Information Theoretic Metric Learning \citep[ITML,][]{Davis07} and Sparse High-Dimensional Metric Learning \citep[SDML,][]{Qi09}.
-The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}.
+The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}, and one triplet learner: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15}.
 Detailed descriptions of these algorithms can be found in the package documentation.
 
 \section{Software Architecture and API}

@@ -89,6 +89,7 @@ These use-cases highlight the importance of integrating metric learning with the
 % (not only class supervision, unlike most packages are focused on, including another package for metric learning in Python, \texttt{PyDML})
 % , which is one interesting feature allowed by the metric learning paradigm. 
 Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a prominent machine learning library in Python. This allows for streamlined model selection, evaluation, and pipelining with other estimators.
+Other packages for metric-learning already exist, however, they have a different focus: \texttt{DistLearn}\footnote{\url{https://www.cs.cmu.edu/~liuy/distlearn.htm}} and \texttt{pyDML}\footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contain almost only fully supervised or unsupervised metric learning algorithms, and \texttt{pytorch-metric-learning}\footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} is focused on deep metric learning, using the pytorch framework.
 % The project is developed collaboratively through GitHub, its code is thoroughly tested using continuous integration tools. It was recently included to \texttt{scikit-learn-contrib}, which hosts high-quality \texttt{scikit-learn}-compatible projects.\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}}
 %\aurelien{decide if we include or not a few sentences on positioning wrt other packages}
 
@@ -97,8 +98,7 @@ Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a promine
 %The rest of this paper is organized as follows. We first present an overview of the package, followed by a more detailed description of the available algorithms. We then give more details about the API and the software architecture, in particular the compatibility with \texttt{scikit-learn}, and conclude with a discussion of future developments.
 
 % \aurelien{we could put the presentation of metric learning and supervision as Sec 2, and put the implemented algorithms in the overview of the package section as Section 3}
-Other packages for metric-learning already exist, however, they have a different focus: \textit{pyDML} only contains supervised metric learning algorithms, and \textit{pytorch-metric-learning} is focused on deep metric learning, with the pytorch framework. 
-\tod[inline]{Talk about the matlab package}
+
 \section{Background on Metric Learning} \label{metriclearning}
 
 % \todo[inline]{comparison with other packages ? }
@@ -152,20 +152,20 @@ Note that $D_L$ can also be written as $D_L(x, x') = \sqrt{(x - x')^\top M (x - 
 % use t to put figure on top (preferred) Thanks ! 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[t]{0.25\textwidth} % "0.45" donne ici la largeur de l'image
-        \centering \includegraphics[scale=0.45]{labels.pdf}
+    \begin{subfigure}[t]{0.20\textwidth} % "0.45" donne ici la largeur de l'image
+        \centering \includegraphics[scale=0.35]{labels.pdf}
         \caption{class supervision}\label{fig:full}
     \end{subfigure}
-    \begin{subfigure}[t]{0.25\textwidth}
-        \centering \includegraphics[scale=0.45]{pairs.pdf}
+    \begin{subfigure}[t]{0.22\textwidth}
+        \centering \includegraphics[scale=0.35]{pairs.pdf}
         \caption{pair supervision}\label{fig:pairs}
     \end{subfigure}
-    \begin{subfigure}[t]{0.40\textwidth}
-        \centering \includegraphics[scale=0.45]{triplets.pdf}
+    \begin{subfigure}[t]{0.25\textwidth}
+        \centering \includegraphics[scale=0.35]{triplets.pdf}
 	\caption{triplet supervision}\label{fig:triplets}
     \end{subfigure}
-    \begin{subfigure}[t]{0.40\textwidth}
-        \centering \includegraphics[scale=0.45]{quadruplets.pdf}
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering \includegraphics[scale=0.35]{quadruplets.pdf}
         \caption{quadruplet supervision}\label{fig:quadruplets}
     \end{subfigure}
     \caption{Different types of supervision for metric learning %(\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference).
@@ -217,8 +217,9 @@ For instance, a human annotator can often quickly decide whether two face images
 % \caption{Metric learning with pairwise constraints}
 % \label{fig:test}
 % \end{figure}
+\emph{Triplet learners} consider 3-tuples of points and learn a metric that brings the anchor point and the positive point closer than the anchor and the negative point.
 Finally, \emph{quadruplet learners} consider 4-tuples of points and aim to learn a metric that brings the two first points of each quadruplet closer than the two last points.
-This can be used to learn a metric space in which closer points are more similar with respect to an attribute of interest, which may be continuous and difficult to annotate accurately (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}).
+Both triplet learners and quadruplets learners can be used to learn a metric space in which closer points are more similar with respect to an attribute of interest, which may be continuous and difficult to annotate accurately (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}, or their hair color, see Figure \ref{fig:triplets}).
 Quadruplet supervision is also used in problems with a class hierarchy.
 %for instance, we want to learn a metric that puts closer together people from approximately the same age.
 
@@ -251,7 +252,7 @@ The source code is available on GitHub at \url{http://github.com/scikit-learn-co
 \texttt{metric-learn} depends on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}.
 Detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.
 The development is collaborative and open to all contributors through the usual GitHub workflow of issues and pull requests.
-Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its more than 740 stars and 170 forks on GitHub at the time of writing.
+Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its more than 990 stars and 200 forks on GitHub at the time of writing.
 The quality of the code is ensured by a thorough test coverage (96\% as of July 2019).
 Every new contribution is automatically checked by a continuous integration platform to enforce sufficient test coverage as well as syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
 
@@ -259,7 +260,7 @@ Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms
 Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points of same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}.
 The latter is designed for regression problems with continuous labels.
 Pair learners include Mahalanobis Metric for Clustering \citep[MMC,][]{Xing2002a}, Information Theoretic Metric Learning \citep[ITML,][]{Davis07} and Sparse High-Dimensional Metric Learning \citep[SDML,][]{Qi09}.
-The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}, and one triplet learner: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15}.
+The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}. A triplet learner has been recently merged and will be integrated in the next release: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15}.
 Detailed descriptions of these algorithms can be found in the package documentation.
 
 \section{Software Architecture and API}

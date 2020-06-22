@@ -154,19 +154,19 @@ Note that $D_L$ can also be written as $D_L(x, x') = \sqrt{(x - x')^\top M (x - 
     \centering
     \begin{subfigure}[t]{0.12\textwidth} % "0.45" donne ici la largeur de l'image
         \centering \includegraphics[scale=0.35]{labels.pdf}
-        \caption{class}\label{fig:full}
+        \caption{classes}\label{fig:full}
     \end{subfigure}
     \begin{subfigure}[t]{0.20\textwidth}
         \centering \includegraphics[scale=0.35]{pairs.pdf}
-        \caption{pair}\label{fig:pairs}
+        \caption{pairs}\label{fig:pairs}
     \end{subfigure}
     \begin{subfigure}[t]{0.31\textwidth}
         \centering \includegraphics[scale=0.35]{triplets.pdf}
-	\caption{triplet}\label{fig:triplets}
+	\caption{triplets}\label{fig:triplets}
     \end{subfigure}
     \begin{subfigure}[t]{0.31\textwidth}
         \centering \includegraphics[scale=0.35]{quadruplets.pdf}
-        \caption{quadruplet}\label{fig:quadruplets}
+        \caption{quadruplets}\label{fig:quadruplets}
     \end{subfigure}
     \caption{Different types of supervision for metric learning %(\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference).
     illustrated on face image data taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}\label{fig:flowers}

@@ -152,21 +152,21 @@ Note that $D_L$ can also be written as $D_L(x, x') = \sqrt{(x - x')^\top M (x - 
 % use t to put figure on top (preferred) Thanks ! 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[t]{0.20\textwidth} % "0.45" donne ici la largeur de l'image
+    \begin{subfigure}[t]{0.12\textwidth} % "0.45" donne ici la largeur de l'image
         \centering \includegraphics[scale=0.35]{labels.pdf}
-        \caption{class supervision}\label{fig:full}
+        \caption{class}\label{fig:full}
     \end{subfigure}
-    \begin{subfigure}[t]{0.22\textwidth}
+    \begin{subfigure}[t]{0.20\textwidth}
         \centering \includegraphics[scale=0.35]{pairs.pdf}
-        \caption{pair supervision}\label{fig:pairs}
+        \caption{pair}\label{fig:pairs}
     \end{subfigure}
-    \begin{subfigure}[t]{0.25\textwidth}
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering \includegraphics[scale=0.35]{triplets.pdf}
-	\caption{triplet supervision}\label{fig:triplets}
+	\caption{triplet}\label{fig:triplets}
     \end{subfigure}
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering \includegraphics[scale=0.35]{quadruplets.pdf}
-        \caption{quadruplet supervision}\label{fig:quadruplets}
+        \caption{quadruplet}\label{fig:quadruplets}
     \end{subfigure}
     \caption{Different types of supervision for metric learning %(\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference).
     illustrated on face image data taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}\label{fig:flowers}
@@ -252,7 +252,7 @@ The source code is available on GitHub at \url{http://github.com/scikit-learn-co
 \texttt{metric-learn} depends on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}.
 Detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.
 The development is collaborative and open to all contributors through the usual GitHub workflow of issues and pull requests.
-Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its more than 990 stars and 200 forks on GitHub at the time of writing.
+Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its 1000 stars and 204 forks on GitHub at the time of writing.
 The quality of the code is ensured by a thorough test coverage (96\% as of July 2019).
 Every new contribution is automatically checked by a continuous integration platform to enforce sufficient test coverage as well as syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
 

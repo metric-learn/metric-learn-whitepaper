@@ -89,9 +89,9 @@ These use-cases highlight the importance of integrating metric learning with the
 % (not only class supervision, unlike most packages are focused on, including another package for metric learning in Python, \texttt{PyDML})
 % , which is one interesting feature allowed by the metric learning paradigm. 
 Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a prominent machine learning library in Python. This allows for streamlined model selection, evaluation, and pipelining with other estimators.
+Other packages for metric learning already exist, however, they have a different focus: \texttt{pyDML} \footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contains almost only fully supervised or unsupervised metric learning algorithms, and \texttt{pytorch-metric-learning} \footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} is focused on deep metric learning, using the \texttt{pytorch} \citep{pytorch} framework. There is also a Matlab toolkit, \texttt{DistLearn} \footnote{\url{https://www.cs.cmu.edu/~liuy/distlearn.htm}}, that is a webpage gathering several implementations of metric-learning algorithms, however they are mostly fully supervised or unsupervised, and they lack a common interface.
 % The project is developed collaboratively through GitHub, its code is thoroughly tested using continuous integration tools. It was recently included to \texttt{scikit-learn-contrib}, which hosts high-quality \texttt{scikit-learn}-compatible projects.\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}}
 %\aurelien{decide if we include or not a few sentences on positioning wrt other packages}
-
 %, which makes \texttt{metric-learn} stand out from other packages, like \texttt{PyDML} \footnote{\url{https://github.com/jlsuarezdiaz/pyDML}}, which mostly focuses on supervised metric learning algorithms.
 % Acknowledgements should go at the end, before appendices and references
 %The rest of this paper is organized as follows. We first present an overview of the package, followed by a more detailed description of the available algorithms. We then give more details about the API and the software architecture, in particular the compatibility with \texttt{scikit-learn}, and conclude with a discussion of future developments.
@@ -151,17 +151,21 @@ Note that $D_L$ can also be written as $D_L(x, x') = \sqrt{(x - x')^\top M (x - 
 % use t to put figure on top (preferred) Thanks ! 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[t]{0.25\textwidth} % "0.45" donne ici la largeur de l'image
-        \centering \includegraphics[scale=0.45]{labels.pdf}
-        \caption{class supervision}\label{fig:full}
+    \begin{subfigure}[t]{0.12\textwidth} % "0.45" donne ici la largeur de l'image
+        \centering \includegraphics[scale=0.35]{labels.pdf}
+        \caption{classes}\label{fig:full}
     \end{subfigure}
-    \begin{subfigure}[t]{0.25\textwidth}
-        \centering \includegraphics[scale=0.45]{pairs.pdf}
-        \caption{pair supervision}\label{fig:pairs}
+    \begin{subfigure}[t]{0.20\textwidth}
+        \centering \includegraphics[scale=0.35]{pairs.pdf}
+        \caption{pairs}\label{fig:pairs}
     \end{subfigure}
-    \begin{subfigure}[t]{0.40\textwidth}
-        \centering \includegraphics[scale=0.45]{quadruplets.pdf}
-        \caption{quadruplet supervision}\label{fig:quadruplets}
+    \begin{subfigure}[t]{0.31\textwidth}
+        \centering \includegraphics[scale=0.35]{triplets.pdf}
+	\caption{triplets}\label{fig:triplets}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.31\textwidth}
+        \centering \includegraphics[scale=0.35]{quadruplets.pdf}
+        \caption{quadruplets}\label{fig:quadruplets}
     \end{subfigure}
     \caption{Different types of supervision for metric learning %(\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference).
     illustrated on face image data taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}\label{fig:flowers}
@@ -212,8 +216,9 @@ For instance, a human annotator can often quickly decide whether two face images
 % \caption{Metric learning with pairwise constraints}
 % \label{fig:test}
 % \end{figure}
+\emph{Triplet learners} consider 3-tuples of points and learn a metric that brings the anchor point and the positive point closer than the anchor and the negative point.
 Finally, \emph{quadruplet learners} consider 4-tuples of points and aim to learn a metric that brings the two first points of each quadruplet closer than the two last points.
-This can be used to learn a metric space in which closer points are more similar with respect to an attribute of interest, which may be continuous and difficult to annotate accurately (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}).
+Both triplet learners and quadruplets learners can be used to learn a metric space in which closer points are more similar with respect to an attribute of interest, which may be continuous and difficult to annotate accurately (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}, or their hair color, see Figure \ref{fig:triplets}).
 Quadruplet supervision is also used in problems with a class hierarchy.
 %for instance, we want to learn a metric that puts closer together people from approximately the same age.
 
@@ -239,7 +244,6 @@ Quadruplet supervision is also used in problems with a class hierarchy.
 % \end{figure}
 
 %\aurelien{Fig caption is redundant with the main text. could reduce it.}
-
 \section{Overview of the Package}
 
 The current release of \texttt{metric-learn} (v.0.5.0) can be installed from the Python Package Index (PyPI), for Python 2.7 and 3.5 or later. 
@@ -247,7 +251,7 @@ The source code is available on GitHub at \url{http://github.com/scikit-learn-co
 \texttt{metric-learn} depends on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}.
 Detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.
 The development is collaborative and open to all contributors through the usual GitHub workflow of issues and pull requests.
-Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its more than 740 stars and 170 forks on GitHub at the time of writing.
+Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its 1000 stars and 204 forks on GitHub at the time of writing.
 The quality of the code is ensured by a thorough test coverage (96\% as of July 2019).
 Every new contribution is automatically checked by a continuous integration platform to enforce sufficient test coverage as well as syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
 
@@ -255,7 +259,7 @@ Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms
 Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points of same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}.
 The latter is designed for regression problems with continuous labels.
 Pair learners include Mahalanobis Metric for Clustering \citep[MMC,][]{Xing2002a}, Information Theoretic Metric Learning \citep[ITML,][]{Davis07} and Sparse High-Dimensional Metric Learning \citep[SDML,][]{Qi09}.
-The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}.
+The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}. A triplet learner has been recently merged and will be integrated in the next release: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15}.
 Detailed descriptions of these algorithms can be found in the package documentation.
 
 \section{Software Architecture and API}
@@ -284,11 +288,12 @@ As such, they are compatible for pipelining with other estimators via \texttt{sk
 % This format is what allows all these API choices, since slicing along the 1st dimension
 % While a classical input array \texttt{X} in \texttt{scikit-learn} has shape \texttt{(n\_samples, n\_features)}, an array of tuples has shape \texttt{(n\_tuples, t, n\_features)}, where \texttt{t} is the number of elements in a tuple (e.g. 2 for pairs).
 % Note that \texttt{scikit-learn} accepts arrays in a broad sense, in what they call "array-like" objects. \texttt{metric-learn} too accepts "tuple-like" objects.
-Weakly supervised algorithms (pair and quadruplet learners) \texttt{fit} and \texttt{predict} on a set of tuples passed as a 3-dimensional array. Tuples can be pairs or quadruplets depending on the algorithm.
+Weakly supervised algorithms (pair, triplet and quadruplet learners) \texttt{fit} and \texttt{predict} on a set of tuples passed as a 3-dimensional array. Tuples can be pairs triplets, or quadruplets depending on the algorithm.
 Pair learners take as input an array-like \texttt{pairs} of shape \texttt{(n\_pairs, 2, n\_features)}, as well as an array-like \texttt{y\_pairs} of shape \texttt{(n\_pairs,)} giving labels (similar or dissimilar) for each pair.
 In order to \texttt{predict} the labels of new pairs, one needs to set a threshold on the distance value.
 This threshold can be set manually or automatically calibrated (at fit time or afterwards on a validation set) to optimize a given score such as accuracy or F1-score using the method \texttt{calibrate\_threshold}.
-Quadruplet learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet the two first elements are the ones we want to be closer than the two last ones. They can naturally \texttt{predict} whether a new quadruplet is in the right order by comparing the two pairwise distances.
+Triplet learners work on array-like of shape \texttt{(n\_quadruplets, 3, n\_features)}, where for each triplet the second element is the one we want to be closer to the first than the third one.
+Quadruplet learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet the two first elements are the ones we want to be closer than the two last ones. Both triplet and quadruplet learners can naturally \texttt{predict} whether a new triplet/quadruplet is in the right order by comparing the two pairwise distances.
 These design choices enable use of \texttt{scikit-learn}'s scoring functions out of the box, as well as the standard routines for model selection, including \texttt{GridSearchCV}.
 To illustrate, the following code snippet computes cross validation scores for ITML (with default parameters) on pairs from Labeled Faces in the Wild \citep{Huang12}.
 % Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).

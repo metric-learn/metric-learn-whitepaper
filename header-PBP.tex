@@ -1,0 +1,175 @@
+%%%%% DOCUMENT SETUP
+\usepackage[top = 1.5cm, bottom = 1.5cm, right = 1.5cm, left = 1.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[titles]{tocloft}
+\usepackage[explicit]{titlesec}
+\usepackage{fancybox}
+\usepackage[bottom]{footmisc}
+\usepackage{fancyhdr}
+\usepackage{etex}
+\usepackage{lastpage}
+\usepackage{setspace}
+
+%%%%% FONTS
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{dsfont}
+
+%%%%%% SYMBOLS
+%\usepackage{latexsym, pifont}
+
+%%%%% MATHS
+\usepackage{amssymb, amsfonts, amsmath, euler, amscd, amsthm, array}
+
+%%%%%% TABLES
+\usepackage{booktabs, tabularx, float, subfig, multicol, multirow, caption, wrapfig}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\captionsetup{format = plain, labelfont = normalfont, textfont = {it, small}, labelsep = endash, justification = centerlast}
+\usepackage{color, colortbl}
+\usepackage[table]{xcolor}
+
+%%%%%% FIGURES
+\usepackage{graphicx, epsfig, tikz, subfig}
+
+%%%%%% HYPERREF
+\RequirePackage[colorlinks, citecolor = autumnred, urlcolor = autumnred, linkcolor = darkautumnred]{hyperref}
+
+%%%%% LISTS
+%\usepackage{enumerate}
+\usepackage{enumitem}
+
+%%%%% MISC
+\usepackage{pdfpages}
+\usepackage{textcomp}
+\usepackage{sidecap}
+\usepackage{ifthen}
+
+%%%%% TITLES FORMAT
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\section}[hang]{\centering\scshape\LARGE\color{bordeau!50!darkautumnred}}{\huge\thesection\,-\,}{0pt}{#1\\[-1em]\textcolor{bordeau!50!darkautumnred}{\hrule height 1.5pt}}
+\titleformat{\subsection}[hang]{\scshape\large}{{\bfseries\color{bordeau!50!darkautumnred}\thesubsection \,-\,}}{5pt}{#1}{}
+%\titleformat{\paragraph}[hang]{\scshape}{}{5pt}{#1}{}
+
+%%%%%% TITLES FORMAT
+%\renewcommand{\thesection}{\huge \roman{section}\,-\,}
+%\renewcommand{\thesubsection}{\arabic{subsection}\,-\,}
+%\titleformat{\section}[hang]{\scshape\LARGE\color{bordeau}}{\thesection}{0pt}{#1 \textcolor{bordeau}{\titlerule[1.25pt]}}
+%\titleformat{\subsection}[hang]{\bfseries\large}{\thesubsection}{5pt}{ #1}
+
+%%%%% COLORS
+\definecolor{bordeau}{rgb}{0.46 , 0.06 , 0.06}
+\definecolor{gris}{rgb}{0.60 , 0.60 , 0.60}
+\definecolor{grisclair}{RGB}{234,234,234}
+\definecolor{autumnred}{RGB}{169,56,38}
+\colorlet{darkautumnred}{autumnred!120}
+
+%%%%% NEW COMMANDS : SHORTCUTS
+
+%% LATIN ABBREVIATIONS
+\newcommand{\ie}{\textit{i.e.}\hspace{4pt}}
+\newcommand{\eg}{\textit{e.g.}\hspace{4pt}}
+\newcommand{\cf}{\textit{cf.}\hspace{4pt}}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+%% MATH SYMBOLS
+\newcommand{\opset}[1]{ \overset{\circ}{#1} } % Interior
+\newcommand{\wideopset}[1]{ \overset{\circ}{\overgroup{#1}} } % Interior (wide)
+\newcommand{\clset}[1]{ \overline{#1} } % Closure
+\newcommand{\ginv}[1]{ #1^{\leftarrow} } % Generalized inverse
+\newcommand{\Prob}[2][]{ \mathbb{P}_{#1}\left( #2 \right)} % Probability
+\newcommand{\Probhat}[2][]{ \widehat{\mathbb{P}}_{#1}\left( #2 \right)} % Probability estimator
+\newcommand{\Esp}[2][]{ \mathbb{E}_{#1}\left( #2 \right) } % Expectation
+\newcommand{\Esphat}[2][]{ \widehat{\mathbb{E}}_{#1}\left( #2 \right) } % Expectation estimator
+\newcommand{\Var}[2][]{ \mathbb{V}_{#1}\left( #2 \right) } % Variance
+\newcommand{\Varhat}[2][]{ \widehat{\mathbb{V}}_{#1}\left( #2 \right) } % Variance estimator
+\newcommand{\ascv}[1][n]{ \underset{ {#1} \rightarrow \infty }{\longrightarrow} } % Asymptotic convergence
+\newcommand{\ascvvg}[1][n]{ \overset{v}{\underset{ {#1} \rightarrow \infty }{\longrightarrow} }} % Vague asymptotic convergence
+\newcommand{\ascvlaw}[1][n]{ \overset{\mathcal{D}}{\underset{ {#1} \rightarrow \infty }{\longrightarrow}} } % Asymptotic convergence in distribution
+\newcommand{\ascvprob}[1][n]{ \overset{\mathbb{P}}{\underset{ {#1} \rightarrow \infty }{\longrightarrow}} } % Asymptotic convergence in probability
+\newcommand{\iid}{\overset{iid}{\leadsto}} % iid distributed
+\newcommand{\vlim}[1][n]{\underset{#1 \rightarrow \infty}{v\hspace{-1.5pt}\lim} \,\, } % Vague limit
+\newcommand{\indic}[1]{\mathbb{I}\left\{ #1 \right\}} % Indicator function
+\newcommand{\COND}{\bigg\vert} % Conditionning (large separator)
+
+%% MATH FONTS
+\def\P{\mathcal P}
+\def\S{\mathcal S}
+\def\RR{\mathbb R}
+\newcommand{\F}{{\cal F}}
+\newcommand{\G}{{\cal G}}
+\newcommand{\X}{{\cal X}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\cR}{{\cal R}}
+\def\C{{\cal C}}
+\def\B{{\cal B}}
+\def\A{{\cal A}}
+\def\N{{\cal N}}
+\def\F{{\cal F}}
+\def\S{{\cal S}}
+\def\L{{\cal L}}
+\def\K{{\cal K}}
+
+%%% DOCUMENT INFORMATIONS
+% AUTHORS
+\newcommand{\theauthor}{}	
+\newcommand{\theshortauthor}{}	% Short version optional
+\renewcommand*{\author}[2][]{\renewcommand{\theshortauthor}{#1}\renewcommand{\theauthor}{#2}}
+% JOURNAL
+\newcommand{\thejournal}{}	
+\newcommand{\theshortjournal}{}	% Short version optional
+\newcommand{\journal}[2][]{\renewcommand{\theshortjournal}{#1}\renewcommand{\thejournal}{#2}}
+% SUBMISSION NUMBER
+\newcommand{\thesubnb}{}
+\newcommand{\subnb}[1]{\renewcommand{\thesubnb}{#1}}
+% DATE
+\newcommand{\thedate}{}
+\renewcommand{\date}[1]{\renewcommand{\thedate}{#1}}
+% PAPER TITLE
+\newcommand{\thepaper}{}
+\newcommand{\theshortpaper}{}
+\newcommand{\paper}[2][]{\renewcommand{\theshortpaper}{#1}\renewcommand{\thepaper}{#2}}
+
+%%% LENGHTS
+\setlength{\parskip}{4pt}				%Saut de paragraphe
+\setlength{\headheight}{15.2pt}			%Hauteur de l'entête
+
+%%% HEADER & FOOTER
+\pagestyle{fancy}
+\fancyhead{}						
+\fancyhead{\begin{tikzpicture}
+[remember picture, overlay] \node[anchor = north west, fill = gray!50, minimum width = \paperwidth, text width = .95\paperwidth, text ragged, inner sep = 5pt] at (current page.north west) {\itshape \ifthenelse{\equal{\theshortauthor}{}}{\theauthor}{\theshortauthor} \hfill \ifthenelse{\equal{\theshortpaper}{}}{\thepaper}{\theshortpaper}}; \end{tikzpicture}}
+\fancyfoot{}						
+\fancyfoot{\begin{tikzpicture}
+[remember picture, overlay] \node[anchor = south west, fill = gray!50, minimum width = \paperwidth, text width = .95\paperwidth, text ragged, inner sep = 5pt] at (current page.south west) {{\itshape \thedate} \hfill \thepage /\pageref{LastPage}}; \end{tikzpicture}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%%% TITLE LAYOUT
+\renewcommand{\maketitle}{
+%\shorthandoff{:}\shorthandoff{!}
+\begin{tikzpicture}
+	\node[minimum width = \paperwidth, minimum height = 0.4\paperheight] at (current page.north west) {};
+\end{tikzpicture}
+\begin{tikzpicture}[remember picture, overlay]
+%
+%	\node[fill = gray!50, minimum width = \paperwidth, text width = 0.95\paperwidth, inner xsep = 1em, inner ysep = 1em, anchor = north west] (head) at (current page.north west) {\large \scshape \theschool \hfill \thelevel};
+%
+	\node[fill = gray, minimum width = \paperwidth, inner ysep = 3em, anchor = north west] (title) at ([yshift = -7em]current page.north west) {\begin{minipage}{.95\paperwidth} \begin{spacing}{2}
+\centering {\huge \scshape Point-by-point reply to the referee report on \thejournal \ submission No. \thesubnb}
+	\end{spacing}\vspace*{-1em}
+	\end{minipage}};
+%	
+%	\node[anchor = base, minimum width = \paperwidth] (course) at  ($(head.south)!0.5!(title.north)$) {\begin{minipage}{\paperwidth} \centering {\scshape \Huge \thecourse} \ifthenelse{\equal{\thesubtitle}{}}{}{{\\\vspace*{2em} \Large \slshape Cours de \theprof}} \end{minipage}};
+%	
+%	\node[fill = gray!50, minimum width = \paperwidth, text width = .95\paperwidth, inner xsep = 1em, inner ysep = 1em, anchor = south west] (foot) at (current page.south west) {\large  \scshape \theauthor \hfill \thedate};
+%	
+	\node[anchor = north west, minimum width = \paperwidth] (auth) at ([xshift = 2em, yshift = -3em]title.south west) {\begin{minipage}{\paperwidth} {\scshape\color{bordeau}\Large Authors:} \hspace{.5em} {\large\textbf{\theauthor}} \end{minipage}};
+	\node[anchor = north west, minimum width = \paperwidth] (pap) at ([yshift = -1em]auth.south west) {\begin{minipage}{\paperwidth} {\scshape\color{bordeau}\Large Title:} \hspace{.5em} {\large\textbf{\thepaper}} \end{minipage}};
+%
+\end{tikzpicture}
+%\shorthandon{:}\shorthandon{!}
+}

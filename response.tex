@@ -1,0 +1,90 @@
+\documentclass[a4paper,12pt]{article}
+
+\input{header-PBP.tex}
+%\setlength\parindent{0pt}
+
+%%%%%% CROSS-REFERENCING WITH THE PAPER
+%\usepackage{zref-xr, zref-user}
+%\zexternaldocument*{C:/Users/Emilie/Documents/Main/Recherche/EnCours/S-EmpProcSurSamp/PAPER/ROUND2/EPSS}
+% use \zref{} instead of \ref{} to reference the external document(s)
+
+
+%%%%% DOCUMENT INFORMATIONS
+
+% Authors (short version in brackets, optional)
+\author{W. de Vazelhes, CJ Carey, Y. Tang, N. Vauquier, A. Bellet}
+
+% Title of the submitted paper (short version in brackets, optional)
+\paper{metric-learn: Metric Learning Algorithms in Python}
+
+% Name of the journal (short version in brackets, optional)
+\journal[JMLR]{Journal of Machine Learning Research}
+
+% Submission number
+\subnb{19-678(1)}
+
+% Date
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Description of the revised version}
+
+We thank the referee for his/her helpful comments. As shown by the following
+point-by-point response, we have addressed all the comments. Additionally, we have updated the content of the paper to reflect the
+improvements made in the last release of \texttt{metric-learn} (v0.6.0, July
+2020), in particular the addition of a new algorithm (Sparse Compositional Metric Learning) along with a generic API for triplet-based metric learning algorithms.\footnote{See \url{https://github.com/scikit-learn-contrib/metric-learn/releases} for a full list of changes.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Reply to the first referee}
+
+\begin{enumerate}
+    \item \textbf{Referee:} There are other metric learning libraries in various programming languages. Perharps a brief comparison with these libraries, specifying similarities and differences, may be of interest to highlight the novelty of this contribution.
+
+    {\it \textbf{Response:} Thank you for the suggestion. We have added a
+    paragraph on the positioning with respect to other packages at the end of
+    Section~1.}
+
+	\item \textbf{Referee:} Perhaps, as for the proposed code example, I would put one more general example that better captures the essence of what the software is, I see the current example a bit specific and it might be better in the user documentation rather than in the four pages description.
+	
+    {\it \textbf{Response:} In the revised version of the paper, we provide
+    two separate code snippets. The first one covers supervised metric learning
+    and showcases the advantages of our unified interface and tight
+    integration with \texttt{scikit-learn} through the use of grid search and
+    pipelining with another estimator from \texttt{scikit-learn}. The second
+    snippet covers weakly supervised algorithms and is a simplified version of
+    the one we had in the initial version of the paper. In both cases, we
+    emphasize that the metric learning algorithm used in the snippet can
+    be readily switched for another one thanks to our unified interface.}
+	
+    \item \textbf{Referee:} It would be interesting too to highlight the advantages of providing a unified interface.
+
+    {\it \textbf{Response:} We have highlighted this better through
+    the positioning with respect to other packages and our updated code
+    snippets, see above points.}
+
+    \item \textbf{Referee:} Most recent method implemented dates from 2012. Although it is also true that the library implements the best known and possibly most prominent methods, such as LMNN, NCA, MMC or ITML, which are all prior to that year, so I do not see it a drawback. Also in the future work is planned the implementation of more recent methods. In any case, the addition of some more recent method would be positive.
+
+    {\it \textbf{Response:} In the last release of \texttt{metric-learn} 
+    (July 2020), we have added a more recent algorithm (Sparse
+    Compositional Metric Learning, AAAI 2014) along with a generic API for
+    triplet-based metric learning which will make future implementations
+    of such algorithms easier. We have updated the content of the paper to
+    reflect these changes, see for instance the updated version of Figure~1
+    which now illustrates triplet supervision. We will continue to incorporate
+    recently proposed algorithms, as emphasized in the conclusion of the paper.}
+
+\end{enumerate}
+
+
+%\bibliographystyle{plain}
+%\bibliography{EPSS}
+
+\end{document}

@@ -20,7 +20,8 @@
 \newcommand{\william}[1]{\todo[inline,caption={},color=blue!40]{{\it William:~}#1}}
 %\renewcommand{\aurelien}[1]{}
 %\renewcommand{\william}[1]{}
-
+\usepackage{xspace}
+\newcommand{\MATLAB}{\textsc{Matlab}\xspace}
 
 \graphicspath{{images/}}
 
@@ -49,7 +50,7 @@
        \addr Google LLC, United States
        \AND
        \name Yuan Tang \email terrytangyuan@gmail.com \\
-       \addr Ant Financial, United States
+       \addr Ant Financial Services Group, United States
        \AND
        \name Nathalie Vauquier \email nathalie.vauquier@inria.fr \\
        \addr INRIA, France
@@ -89,7 +90,11 @@ These use-cases highlight the importance of integrating metric learning with the
 % (not only class supervision, unlike most packages are focused on, including another package for metric learning in Python, \texttt{PyDML})
 % , which is one interesting feature allowed by the metric learning paradigm. 
 Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a prominent machine learning library in Python. This allows for streamlined model selection, evaluation, and pipelining with other estimators.
-Other packages for metric learning already exist, however, they have a different focus: \texttt{pyDML} \footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contains almost only fully supervised or unsupervised metric learning algorithms, and \texttt{pytorch-metric-learning} \footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} is focused on deep metric learning, using the \texttt{pytorch} \citep{pytorch} framework. There is also a Matlab toolkit, \texttt{DistLearn} \footnote{\url{https://www.cs.cmu.edu/~liuy/distlearn.htm}}, that is a webpage gathering several implementations of metric-learning algorithms, however they are mostly fully supervised or unsupervised, and they lack a common interface.
+
+\paragraph{Positioning with respect to other packages.} Many metric learning algorithms were originally implemented by their authors in \MATLAB without a common API convention.\footnote{See \url{https://www.cs.cmu.edu/~liuy/distlearn.htm} for a list of \MATLAB implementations.}  In R, the package \texttt{dml} \citep{Tang18} implements several metric learning algorithms with a unified interface but is not tightly integrated with any general-purpose machine learning library. In Python, \texttt{pyDML}\footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contains mainly fully supervised and unsupervised algorithms, while \texttt{pytorch-metric-learning}\footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} focuses on deep metric learning using the \texttt{pytorch} framework \citep{pytorch}.
+
+% Other packages for metric learning already exist, however, they have a different focus: \texttt{pyDML} \footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contains almost only fully supervised or unsupervised metric learning algorithms, and \texttt{pytorch-metric-learning} \footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} is focused on deep metric learning, using the \texttt{pytorch} \citep{pytorch} framework. There are also resources for metric learning in other languages like Matlab and R. In Matlab, the toolkit \texttt{DistLearn} \footnote{\url{https://www.cs.cmu.edu/~liuy/distlearn.htm}}is a webpage gathering several implementations of metric-learning algorithms, however they are mostly fully supervised or unsupervised, and they lack a common interface. In R, the package \texttt{dml} \citep{Tang18} implements several metric-learning algorithms with a unified interface.
+
 % The project is developed collaboratively through GitHub, its code is thoroughly tested using continuous integration tools. It was recently included to \texttt{scikit-learn-contrib}, which hosts high-quality \texttt{scikit-learn}-compatible projects.\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}}
 %\aurelien{decide if we include or not a few sentences on positioning wrt other packages}
 %, which makes \texttt{metric-learn} stand out from other packages, like \texttt{PyDML} \footnote{\url{https://github.com/jlsuarezdiaz/pyDML}}, which mostly focuses on supervised metric learning algorithms.
@@ -216,10 +221,10 @@ For instance, a human annotator can often quickly decide whether two face images
 % \caption{Metric learning with pairwise constraints}
 % \label{fig:test}
 % \end{figure}
-\emph{Triplet learners} consider 3-tuples of points and learn a metric that brings the anchor point and the positive point closer than the anchor and the negative point.
+\emph{Triplet learners} consider 3-tuples of points and learn a metric that brings the first (\emph{anchor}) point of each triplet closer to the second point than to the third one.
 Finally, \emph{quadruplet learners} consider 4-tuples of points and aim to learn a metric that brings the two first points of each quadruplet closer than the two last points.
-Both triplet learners and quadruplets learners can be used to learn a metric space in which closer points are more similar with respect to an attribute of interest, which may be continuous and difficult to annotate accurately (e.g., the age of a person on an image, see Figure \ref{fig:quadruplets}, or their hair color, see Figure \ref{fig:triplets}).
-Quadruplet supervision is also used in problems with a class hierarchy.
+Both triplet and quadruplets learners can be used to learn a metric space where closer points are more similar with respect to an attribute of interest, in particular when this attribute is continuous and/or difficult to annotate accurately (e.g., the hair color of a person on an image, see Figure \ref{fig:triplets}, or the age of a person, see Figure \ref{fig:quadruplets}).
+Triplet and quadruplet supervision can also be used in problems with a class hierarchy.
 %for instance, we want to learn a metric that puts closer together people from approximately the same age.
 
 
@@ -246,20 +251,21 @@ Quadruplet supervision is also used in problems with a class hierarchy.
 %\aurelien{Fig caption is redundant with the main text. could reduce it.}
 \section{Overview of the Package}
 
-The current release of \texttt{metric-learn} (v.0.5.0) can be installed from the Python Package Index (PyPI), for Python 2.7 and 3.5 or later. 
+The current release of \texttt{metric-learn} (v0.6.0) can be installed from the Python Package Index (PyPI) and conda-forge, for Python 3.6 or later.\footnote{Support for Python 2.7 and 3.5 was dropped in the last release.}
 The source code is available on GitHub at \url{http://github.com/scikit-learn-contrib/metric-learn} and is free to use, provided under the MIT license. 
 \texttt{metric-learn} depends on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}.
 Detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.
 The development is collaborative and open to all contributors through the usual GitHub workflow of issues and pull requests.
-Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its 1000 stars and 204 forks on GitHub at the time of writing.
-The quality of the code is ensured by a thorough test coverage (96\% as of July 2019).
+Community interest for the package has been demonstrated by its recent inclusion in the \texttt{scikit-learn-contrib} organization which hosts high-quality \texttt{scikit-learn}-compatible projects,\footnote{\url{https://github.com/scikit-learn-contrib/scikit-learn-contrib}} and by its more than 1000 stars and 200 forks on GitHub at the time of writing.
+The quality of the code is ensured by a thorough test coverage (97\% as of June 2020).
 Every new contribution is automatically checked by a continuous integration platform to enforce sufficient test coverage as well as syntax formatting with \texttt{flake8}. %, which allows easy contribution for incoming developers, which can have their code automatically checked.
 
-Currently, \texttt{metric-learn} implements 9 popular metric learning algorithms.
+Currently, \texttt{metric-learn} implements 10 popular metric learning algorithms.
 Supervised learners include Neighborhood Components Analysis \citep[NCA,][]{Goldberger04}, Large Margin Nearest Neighbors \citep[LMNN,][]{Weinberger09}, Relative Components Analysis \citep[RCA,][]{Shental02},\footnote{RCA takes as input slightly weaker supervision in the form of \emph{chunklets} (groups of points of same class).} Local Fisher Discriminant Analysis \citep[LFDA,][]{Sugiyama07} and Metric Learning for Kernel Regression \citep[MLKR,][]{Weinberger07}.
 The latter is designed for regression problems with continuous labels.
 Pair learners include Mahalanobis Metric for Clustering \citep[MMC,][]{Xing2002a}, Information Theoretic Metric Learning \citep[ITML,][]{Davis07} and Sparse High-Dimensional Metric Learning \citep[SDML,][]{Qi09}.
-The package implements one quadruplet learner: Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}. A triplet learner has been recently merged and will be integrated in the next release: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15}.
+Finally, the package implements one triplet learner and one quadruplet learner: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15} and Metric Learning from Relative Comparisons by Minimizing Squared Residual \citep[LSML,][]{Liu12}.
+% A triplet learner has been recently merged and will be integrated in the next release: Sparse Compositional Metric Learning \citep[SCML,][]{Shi15}.
 Detailed descriptions of these algorithms can be found in the package documentation.
 
 \section{Software Architecture and API}
@@ -279,6 +285,35 @@ Mahalanobis distance learning algorithms also inherit from a \texttt{Mahalanobis
 
 Supervised metric learners inherit from \texttt{scikit-learn}'s base class \texttt{TransformerMixin}, the same base class used by \texttt{sklearn.LinearDiscriminantAnalysis} and others.
 As such, they are compatible for pipelining with other estimators via \texttt{sklearn.pipeline.Pipeline}.
+To illustrate, the following code snippet trains a \texttt{Pipeline} composed of LMNN followed by a k-nearest neighbors classifier on the UCI Wine dataset, with the hyperparameters selected with a grid-search. Any other supervised metric learner can be used in place of LMNN.
+% Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).
+%\begin{minted}[%linenos=TRUE,
+%fontsize=\footnotesize]{python}
+%>>> from sklearn.datasets import fetch_lfw_pairs 
+%>>> from sklearn.model_selection import cross_validate, train_test_split 
+%>>> from sklearn.decomposition import PCA 
+%>>> from metric_learn import ITML 
+%>>> pairs, y_pairs = [fetch_lfw_pairs()[key] for key in ['pairs', 'target']]
+%>>> pairs = PCA(n_components=25).fit_transform(pairs.reshape(4400, -1)).reshape(-1, 2, 25) 
+%>>> pairs, _, y_pairs, _ = train_test_split(pairs, 2*y_pairs-1)  
+%>>> cross_validate(ITML(), pairs, y_pairs, scoring='roc_auc', return_train_score=True)
+%\end{minted}
+\begin{minted}[%linenos=TRUE,
+fontsize=\footnotesize]{python}
+from sklearn.datasets import load_wine
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.pipeline import Pipeline
+from metric_learn import LMNN
+
+X_train, X_test, y_train, y_test = train_test_split(*load_wine(return_X_y=True))
+lmnn_knn = Pipeline(steps=[('lmnn', LMNN()), ('knn', KNeighborsClassifier())])
+parameters = {'lmnn__k':[1, 2], 'knn__n_neighbors':[1, 2]}
+grid_lmnn_knn = GridSearchCV(lmnn_knn, parameters, cv=3, n_jobs=-1, verbose=True)
+grid_lmnn_knn.fit(X_train, y_train)
+grid_lmnn_knn.score(X_test, y_test)
+\end{minted}
+
 % (they pass all scikit-learn's "estimators checks"). 
 %  They can easily be pipelined with nearest neighbors estimators to improve their performance: \texttt{better\_knn = sklearn.pipeline.make\_pipeline(NCA(), KNeighborsClassifier())} (TODO: sth to explain NCA is in metric-learn)
 % \aurelien{mention pipelining}
@@ -288,26 +323,28 @@ As such, they are compatible for pipelining with other estimators via \texttt{sk
 % This format is what allows all these API choices, since slicing along the 1st dimension
 % While a classical input array \texttt{X} in \texttt{scikit-learn} has shape \texttt{(n\_samples, n\_features)}, an array of tuples has shape \texttt{(n\_tuples, t, n\_features)}, where \texttt{t} is the number of elements in a tuple (e.g. 2 for pairs).
 % Note that \texttt{scikit-learn} accepts arrays in a broad sense, in what they call "array-like" objects. \texttt{metric-learn} too accepts "tuple-like" objects.
-Weakly supervised algorithms (pair, triplet and quadruplet learners) \texttt{fit} and \texttt{predict} on a set of tuples passed as a 3-dimensional array. Tuples can be pairs triplets, or quadruplets depending on the algorithm.
+Weakly supervised algorithms (pair, triplet and quadruplet learners) \texttt{fit} and \texttt{predict} on a set of tuples passed as a 3-dimensional array. Tuples can be pairs, triplets, or quadruplets depending on the algorithm.
 Pair learners take as input an array-like \texttt{pairs} of shape \texttt{(n\_pairs, 2, n\_features)}, as well as an array-like \texttt{y\_pairs} of shape \texttt{(n\_pairs,)} giving labels (similar or dissimilar) for each pair.
 In order to \texttt{predict} the labels of new pairs, one needs to set a threshold on the distance value.
 This threshold can be set manually or automatically calibrated (at fit time or afterwards on a validation set) to optimize a given score such as accuracy or F1-score using the method \texttt{calibrate\_threshold}.
-Triplet learners work on array-like of shape \texttt{(n\_quadruplets, 3, n\_features)}, where for each triplet the second element is the one we want to be closer to the first than the third one.
-Quadruplet learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet the two first elements are the ones we want to be closer than the two last ones. Both triplet and quadruplet learners can naturally \texttt{predict} whether a new triplet/quadruplet is in the right order by comparing the two pairwise distances.
-These design choices enable use of \texttt{scikit-learn}'s scoring functions out of the box, as well as the standard routines for model selection, including \texttt{GridSearchCV}.
-To illustrate, the following code snippet computes cross validation scores for ITML (with default parameters) on pairs from Labeled Faces in the Wild \citep{Huang12}.
-% Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).
+Triplet learners work on array-like of shape \texttt{(n\_triplets, 3, n\_features)}, where for each triplet we want the first element to be closer to the second than to the third one.
+Quadruplet learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet we want the two first elements to be closer together than the two last ones. Both triplet and quadruplet learners can naturally \texttt{predict} whether a new triplet/quadruplet is in the right order by comparing the two pairwise distances.
+To illustrate the weakly-supervised learning API, the following code snippet computes cross validation scores for MMC on pairs from Labeled Faces in the Wild \citep{Huang12}. Thanks to our unified interface, MMC can be switched for another pair learner wihtout changing the rest of the code below.
 \begin{minted}[%linenos=TRUE,
 fontsize=\footnotesize]{python}
->>> from sklearn.datasets import fetch_lfw_pairs 
->>> from sklearn.model_selection import cross_validate, train_test_split 
->>> from sklearn.decomposition import PCA 
->>> from metric_learn import ITML 
->>> pairs, y_pairs = [fetch_lfw_pairs()[key] for key in ['pairs', 'target']]
->>> pairs = PCA(n_components=25).fit_transform(pairs.reshape(4400, -1)).reshape(-1, 2, 25) 
->>> pairs, _, y_pairs, _ = train_test_split(pairs, 2*y_pairs-1)  
->>> cross_validate(ITML(), pairs, y_pairs, scoring='roc_auc', return_train_score=True)
+from sklearn.datasets import fetch_lfw_pairs 
+from sklearn.model_selection import cross_validate, train_test_split 
+from metric_learn import MMC
+
+ds = fetch_lfw_pairs()
+pairs = ds.pairs.reshape(*ds.pairs.shape[:2], -1)  # we transform 2D images into 1D vectors
+y_pairs = 2 * ds.target - 1  # we need the labels to be in {+1, -1}
+pairs, _, y_pairs, _ = train_test_split(pairs, y_pairs)
+cross_validate(MMC(diagonal=True), pairs, y_pairs, scoring='roc_auc', 
+               return_train_score=True, cv=3, n_jobs=-1, verbose=True) 
 \end{minted}
+%These design choices enable the use of \texttt{scikit-learn}'s scoring functions out of the box, as well as of the standard routines for model selection, including \texttt{GridSearchCV}.
+
 % mmc.predict(pairs)
 %\william{warning: the $*\_$ syntax is only compatible in python 3 I think, is it OK ? }
 %\aurelien{remove $*\_$, use AUC, maybe remove rescaling, potentially try other weakly sup algo, prior random really useful}
@@ -322,7 +359,7 @@ fontsize=\footnotesize]{python}
 \section{Future Work}
 
 \texttt{metric-learn} is under active development. We list here some promising directions to further improve the package. To scale to large datasets, we would like to implement stochastic solvers (SGD and its variants), forming batches of tuples on the fly to avoid loading all data in memory at once. % We would also like to offer better support to inputs in sparse format.
-We also plan to incorporate new algorithms that provide added value to the package, in particular some that learn from triplet supervision \citep{Schultz2003a}, can deal with multi-label \citep{liu15} and high-dimensional problems \citep{Liu19}, or learn other forms of metrics \citep[e.g., nonlinear ones, bilinear similarities, and multiple local metrics, see][]{Bellet15}.
+We also plan to incorporate recent algorithms that provide added value to the package, such as those that can deal with multi-label \citep{liu15} and high-dimensional problems \citep{Liu19}, or learn other forms of metrics like bilinear similarities, nonlinear and local metrics \citep[see][for a survey]{Bellet15}.
 %We could also allow metric learn to be used when having multiple labels for each sample, and allow different kind of supervisions, like semi-supervised learning for instance.
 %We could also improve the ease of use by adding more examples and adding toy datasets to play with quickly and see the interest of the weaker forms of supervision. About the overall quality of the software, we intend to improve the continuous integration routines, for instance by ensuring a PEP8 syntax checker is run on every pull request, a continuous integration for the documentation.
 %\aurelien{if possible, mention algorithms that learn other metrics (similarity, nonlinear, local..}

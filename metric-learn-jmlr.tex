@@ -30,36 +30,35 @@
 \newcommand{\dataset}{{\cal D}}
 \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
 
-% Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
-
-\jmlrheading{}{}{}{}{}{William de Vazelhes and CJ Carey and Yuan Tang and Nathalie Vauquier and Aur\'elien Bellet}
-
-% Short headings should be running head and authors last names
-
+\usepackage{lastpage}
+\jmlrheading{21}{2020}{1-\pageref{LastPage}}{8/19; Revised
+7/20}{7/20}{19-678}{William de Vazelhes and CJ Carey and Yuan Tang and Nathalie Vauquier and Aur\'elien Bellet}
 \ShortHeadings{metric-learn: Metric Learning Algorithms in Python}{de Vazelhes, Carey, Tang, Vauquier and Bellet}
+
 \firstpageno{1}
 
 \begin{document}
 
 \title{metric-learn: Metric Learning Algorithms in Python}
 
-\author{\name William de Vazelhes \email william.de-vazelhes@inria.fr \\
-       \addr INRIA, France
+\author{\name William de Vazelhes\thanks{Most of the work was carried out while the author was affiliated with INRIA, France.} \email wdevazelhes@gmail.com \\
+       \addr Paris Research Center, Huawei Technologies\\
+       92100 Boulogne-Billancourt, France
        \AND
        \name CJ Carey \email perimosocordiae@gmail.com \\
        \addr Google LLC, United States
        \AND
        \name Yuan Tang \email terrytangyuan@gmail.com \\
-       \addr Ant Financial Services Group, United States
+       \addr Ant Group, United States
        \AND
        \name Nathalie Vauquier \email nathalie.vauquier@inria.fr \\
-       \addr INRIA, France
-       \AND
+       % \addr INRIA, France
        \name Aur\'elien Bellet \email aurelien.bellet@inria.fr \\
-       \addr INRIA, France
+       \addr Magnet Team, INRIA Lille – Nord Europe\\
+       59650 Villeneuve d’Ascq, France
        }
 
-\editor{}
+\editor{Balazs Kegl}
 
 \maketitle
 
@@ -91,7 +90,7 @@ These use-cases highlight the importance of integrating metric learning with the
 % , which is one interesting feature allowed by the metric learning paradigm. 
 Its API is compatible with \texttt{scikit-learn} \citep{scikit-learn}, a prominent machine learning library in Python. This allows for streamlined model selection, evaluation, and pipelining with other estimators.
 
-\paragraph{Positioning with respect to other packages.} Many metric learning algorithms were originally implemented by their authors in \MATLAB without a common API convention.\footnote{See \url{https://www.cs.cmu.edu/~liuy/distlearn.htm} for a list of \MATLAB implementations.}  In R, the package \texttt{dml} \citep{Tang18} implements several metric learning algorithms with a unified interface but is not tightly integrated with any general-purpose machine learning library. In Python, \texttt{pyDML}\footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contains mainly fully supervised and unsupervised algorithms, while \texttt{pytorch-metric-learning}\footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} focuses on deep metric learning using the \texttt{pytorch} framework \citep{pytorch}.
+\paragraph{Positioning with respect to other packages.} Many metric learning algorithms were originally implemented by their authors in \MATLAB without a common API convention.\footnote{See \url{https://www.cs.cmu.edu/~liuy/distlearn.htm} for a list of \MATLAB implementations.}  In R, the package \texttt{dml} \citep{Tang18} implements several metric learning algorithms with a unified interface but is not tightly integrated with any general-purpose machine learning library. In Python, \texttt{pyDML} \citep{pyDML} contains mainly fully supervised and unsupervised algorithms, while \texttt{pytorch-metric-learning}\footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} focuses on deep metric learning using the \texttt{pytorch} framework \citep{pytorch}.
 
 % Other packages for metric learning already exist, however, they have a different focus: \texttt{pyDML} \footnote{\url{http://github.com/jlsuarezdiaz/pydml}} contains almost only fully supervised or unsupervised metric learning algorithms, and \texttt{pytorch-metric-learning} \footnote{\url{http://github.com/KevinMusgrave/pytorch-metric-learning}} is focused on deep metric learning, using the \texttt{pytorch} \citep{pytorch} framework. There are also resources for metric learning in other languages like Matlab and R. In Matlab, the toolkit \texttt{DistLearn} \footnote{\url{https://www.cs.cmu.edu/~liuy/distlearn.htm}}is a webpage gathering several implementations of metric-learning algorithms, however they are mostly fully supervised or unsupervised, and they lack a common interface. In R, the package \texttt{dml} \citep{Tang18} implements several metric-learning algorithms with a unified interface.
 
@@ -251,7 +250,7 @@ Triplet and quadruplet supervision can also be used in problems with a class hie
 %\aurelien{Fig caption is redundant with the main text. could reduce it.}
 \section{Overview of the Package}
 
-The current release of \texttt{metric-learn} (v0.6.0) can be installed from the Python Package Index (PyPI) and conda-forge, for Python 3.6 or later.\footnote{Support for Python 2.7 and 3.5 was dropped in the last release.}
+The current release of \texttt{metric-learn} (v0.6.2) can be installed from the Python Package Index (PyPI) and conda-forge, for Python 3.6 or later.\footnote{Support for Python 2.7 and 3.5 was dropped in v0.6.0.}
 The source code is available on GitHub at \url{http://github.com/scikit-learn-contrib/metric-learn} and is free to use, provided under the MIT license. 
 \texttt{metric-learn} depends on core libraries from the SciPy ecosystem: \texttt{numpy}, \texttt{scipy}, and \texttt{scikit-learn}.
 Detailed documentation (including installation guidelines, the description of the algorithms and the API, as well as examples) is available at \url{http://contrib.scikit-learn.org/metric-learn}.

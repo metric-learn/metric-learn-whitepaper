@@ -8,7 +8,6 @@
 % natbib citation styles, see the natbib documentation, a copy of which
 % is archived at http://www.jmlr.org/format/natbib.pdf
 
-\usepackage{jmlr2e}
 \usepackage[cachedir=.,finalizecache]{minted}
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage{graphicx}
@@ -16,6 +15,7 @@
 \usepackage{subcaption}
 \usepackage{stmaryrd}
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage{jmlr2e}
 \newcommand{\aurelien}[1]{\todo[inline,caption={},color=orange!40]{{\it Aurelien:~}#1}}
 \newcommand{\william}[1]{\todo[inline,caption={},color=blue!40]{{\it William:~}#1}}
 %\renewcommand{\aurelien}[1]{}
@@ -29,7 +29,7 @@
 
 \newcommand{\dataset}{{\cal D}}
 \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
-
+\abbrvbib
 \usepackage{lastpage}
 \jmlrheading{21}{2020}{1-\pageref{LastPage}}{8/19; Revised
 7/20}{7/20}{19-678}{William de Vazelhes and CJ Carey and Yuan Tang and Nathalie Vauquier and Aur\'elien Bellet}
@@ -46,10 +46,12 @@
        92100 Boulogne-Billancourt, France
        \AND
        \name CJ Carey \email perimosocordiae@gmail.com \\
-       \addr Google LLC, United States
+       \addr Google LLC \\
+       111 8th Ave, New York, NY 10011, USA
        \AND
        \name Yuan Tang \email terrytangyuan@gmail.com \\
-       \addr Ant Group, United States
+       \addr Ant Group \\ 
+       525 Almanor Ave, Sunnyvale, CA 94085, USA
        \AND
        \name Nathalie Vauquier \email nathalie.vauquier@inria.fr \\
        % \addr INRIA, France
@@ -172,12 +174,12 @@ Note that $D_L$ can also be written as $D_L(x, x') = \sqrt{(x - x')^\top M (x - 
         \caption{quadruplets}\label{fig:quadruplets}
     \end{subfigure}
     \caption{Different types of supervision for metric learning %(\subref{fig:full}) Class supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make leftmost pairs (here, people of similar age) closer than rightmost pairs (of bigger age difference).
-    illustrated on face image data taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}\label{fig:flowers}
+    illustrated on face image data taken from the Labeled Faces in the Wild data set \citep{Huang12}.}\label{fig:flowers}
 \end{figure}
 
 Metric learning algorithms can be categorized according to the form of data supervision they require to learn a metric.
 \texttt{metric-learn} currently implements algorithms that fall into the following categories.
-\emph{Supervised learners} learn from a dataset with one label per training example, aiming to bring together points from the same class while spreading points from different classes.
+\emph{Supervised learners} learn from a data set with one label per training example, aiming to bring together points from the same class while spreading points from different classes.
 For instance, data points could be face images and the class could be the identity of the person (see Figure~\ref{fig:full}). 
 % \todo[inline]{ces figures ne sont pas très vendeuses. je propose de faire une figure conceptuelle en prenant l'exemple des faces expliquant la différence entre le supervisé, les paires et les quadruplets. on peut s'inspirer de \url{http://cedric.cnam.fr/~thomen/papers/Law_ICCV_2013_QWise.pdf}}
 % \begin{figure}[H]
@@ -243,7 +245,7 @@ Triplet and quadruplet supervision can also be used in problems with a class hie
 %      \includegraphics[scale=0.5]{quadruplets.pdf}
 %      \label{fig:quadruplets}
 %   \end{subfigure}
-%   \caption{Different types of supervision for metric learning. (\subref{fig:full}) Full supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make the two leftmost samples (here, people of similar age) to be closer than the two rightmost samples (of bigger age difference). Images are taken from the Labeled Faces in the Wild dataset \citep{Huang12}.}
+%   \caption{Different types of supervision for metric learning. (\subref{fig:full}) Full supervision: make samples from the same label (here, identity) closer together than samples from different labels. (\subref{fig:pairs}) Pair supervision: make similar pairs (here, corresponding to the same person) to be closer than dissimilar pairs (different persons). (\subref{fig:quadruplets}) Quadruplet supervision: make the two leftmost samples (here, people of similar age) to be closer than the two rightmost samples (of bigger age difference). Images are taken from the Labeled Faces in the Wild data set \citep{Huang12}.}
 %   \label{fig:contour}
 % \end{figure}
 
@@ -280,15 +282,15 @@ All metric learners inherit from an abstract \texttt{BaseMetricLearner} class, w
 % \todo[inline]{I think it can be nice, this is not documentation, but explaining how things are coded}
 %\texttt{metric-learn}'s API is designed to be fully compatible with \texttt{scikit-learn} API (\cite{scikit-learn}). 
 Mahalanobis distance learning algorithms also inherit from a \texttt{MahalanobisMixin} interface, which has an attribute \texttt{components\_} corresponding to the transformation matrix $L$ of the Mahalanobis distance. \texttt{MahalanobisMixin} implements \texttt{get\_metric} and \texttt{score\_pairs} accordingly as well as a few additional methods. In particular, \texttt{transform} allows to transform data using \texttt{components\_}, and \texttt{get\_mahalanobis\_matrix} returns the Mahalanobis matrix $M=L^TL$.
-% This latter can return the mahalanobis matrix with the method \texttt{get\_mahalanobis\_matrix}. Like scikit-learn's algorithms, it can also return a \texttt{components\_} attributes that is the transformation matrix \texttt{L}. Since all these metric learner learn this implicit transformation $L$, they can project the input in the new space using \texttt{transform}. A distance function can also be extracted from them using \texttt{get\_metric}, that can further be used in any scikit-learn estimator like \texttt{KMeansClustering}. They can also return the distance between a dataset of pairs (in the 3D array format (see below), using \texttt{score\_pairs}.
+% This latter can return the mahalanobis matrix with the method \texttt{get\_mahalanobis\_matrix}. Like scikit-learn's algorithms, it can also return a \texttt{components\_} attributes that is the transformation matrix \texttt{L}. Since all these metric learner learn this implicit transformation $L$, they can project the input in the new space using \texttt{transform}. A distance function can also be extracted from them using \texttt{get\_metric}, that can further be used in any scikit-learn estimator like \texttt{KMeansClustering}. They can also return the distance between a data set of pairs (in the 3D array format (see below), using \texttt{score\_pairs}.
 
 Supervised metric learners inherit from \texttt{scikit-learn}'s base class \texttt{TransformerMixin}, the same base class used by \texttt{sklearn.LinearDiscriminantAnalysis} and others.
 As such, they are compatible for pipelining with other estimators via \texttt{sklearn.pipeline.Pipeline}.
-To illustrate, the following code snippet trains a \texttt{Pipeline} composed of LMNN followed by a k-nearest neighbors classifier on the UCI Wine dataset, with the hyperparameters selected with a grid-search. Any other supervised metric learner can be used in place of LMNN.
+To illustrate, the following code snippet trains a \texttt{Pipeline} composed of LMNN followed by a k-nearest neighbors classifier on the UCI Wine data set, with the hyperparameters selected with a grid-search. Any other supervised metric learner can be used in place of LMNN.
 % Also note that for every pair/quadruplet learner, there is a \texttt{\_Supervised} version (e.g. for \texttt{MMC} there is \texttt{MMC\_Supervised}, that is a supervised version that samples pairs of similar samples from intra-class samples, and dissimilar samples from inter-class samples, and fits \texttt{MMC} on these pairs).
 %\begin{minted}[%linenos=TRUE,
 %fontsize=\footnotesize]{python}
-%>>> from sklearn.datasets import fetch_lfw_pairs 
+%>>> from sklearn.data sets import fetch_lfw_pairs 
 %>>> from sklearn.model_selection import cross_validate, train_test_split 
 %>>> from sklearn.decomposition import PCA 
 %>>> from metric_learn import ITML 
@@ -304,7 +306,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.pipeline import Pipeline
 from metric_learn import LMNN
-
 X_train, X_test, y_train, y_test = train_test_split(*load_wine(return_X_y=True))
 lmnn_knn = Pipeline(steps=[('lmnn', LMNN()), ('knn', KNeighborsClassifier())])
 parameters = {'lmnn__k':[1, 2], 'knn__n_neighbors':[1, 2]}
@@ -334,7 +335,6 @@ fontsize=\footnotesize]{python}
 from sklearn.datasets import fetch_lfw_pairs 
 from sklearn.model_selection import cross_validate, train_test_split 
 from metric_learn import MMC
-
 ds = fetch_lfw_pairs()
 pairs = ds.pairs.reshape(*ds.pairs.shape[:2], -1)  # we transform 2D images into 1D vectors
 y_pairs = 2 * ds.target - 1  # we need the labels to be in {+1, -1}
@@ -357,10 +357,10 @@ cross_validate(MMC(diagonal=True), pairs, y_pairs, scoring='roc_auc',
 
 \section{Future Work}
 
-\texttt{metric-learn} is under active development. We list here some promising directions to further improve the package. To scale to large datasets, we would like to implement stochastic solvers (SGD and its variants), forming batches of tuples on the fly to avoid loading all data in memory at once. % We would also like to offer better support to inputs in sparse format.
+\texttt{metric-learn} is under active development. We list here some promising directions to further improve the package. To scale to large data sets, we would like to implement stochastic solvers (SGD and its variants), forming batches of tuples on the fly to avoid loading all data in memory at once. % We would also like to offer better support to inputs in sparse format.
 We also plan to incorporate recent algorithms that provide added value to the package, such as those that can deal with multi-label \citep{liu15} and high-dimensional problems \citep{Liu19}, or learn other forms of metrics like bilinear similarities, nonlinear and local metrics \citep[see][for a survey]{Bellet15}.
 %We could also allow metric learn to be used when having multiple labels for each sample, and allow different kind of supervisions, like semi-supervised learning for instance.
-%We could also improve the ease of use by adding more examples and adding toy datasets to play with quickly and see the interest of the weaker forms of supervision. About the overall quality of the software, we intend to improve the continuous integration routines, for instance by ensuring a PEP8 syntax checker is run on every pull request, a continuous integration for the documentation.
+%We could also improve the ease of use by adding more examples and adding toy data sets to play with quickly and see the interest of the weaker forms of supervision. About the overall quality of the software, we intend to improve the continuous integration routines, for instance by ensuring a PEP8 syntax checker is run on every pull request, a continuous integration for the documentation.
 %\aurelien{if possible, mention algorithms that learn other metrics (similarity, nonlinear, local..}
 
 \acks

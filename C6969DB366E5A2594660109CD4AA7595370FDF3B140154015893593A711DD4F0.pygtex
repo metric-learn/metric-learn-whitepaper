@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.datasets} \PYG{k+kn}{import} \PYG{n}{fetch\PYGZus{}lfw\PYGZus{}pairs}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{cross\PYGZus{}validate}\PYG{p}{,} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+\PYG{k+kn}{from} \PYG{n+nn}{metric\PYGZus{}learn} \PYG{k+kn}{import} \PYG{n}{MMC}
+\PYG{n}{ds} \PYG{o}{=} \PYG{n}{fetch\PYGZus{}lfw\PYGZus{}pairs}\PYG{p}{()}
+\PYG{n}{pairs} \PYG{o}{=} \PYG{n}{ds}\PYG{o}{.}\PYG{n}{pairs}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{o}{*}\PYG{n}{ds}\PYG{o}{.}\PYG{n}{pairs}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[:}\PYG{l+m+mi}{2}\PYG{p}{],} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} we transform 2D images into 1D vectors}
+\PYG{n}{y\PYGZus{}pairs} \PYG{o}{=} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{ds}\PYG{o}{.}\PYG{n}{target} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} we need the labels to be in \PYGZob{}+1, \PYGZhy{}1\PYGZcb{}}
+\PYG{n}{pairs}\PYG{p}{,} \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{y\PYGZus{}pairs}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{pairs}\PYG{p}{,} \PYG{n}{y\PYGZus{}pairs}\PYG{p}{)}
+\PYG{n}{cross\PYGZus{}validate}\PYG{p}{(}\PYG{n}{MMC}\PYG{p}{(}\PYG{n}{diagonal}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{),} \PYG{n}{pairs}\PYG{p}{,} \PYG{n}{y\PYGZus{}pairs}\PYG{p}{,} \PYG{n}{scoring}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}roc\PYGZus{}auc\PYGZsq{}}\PYG{p}{,}
+               \PYG{n}{return\PYGZus{}train\PYGZus{}score}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{verbose}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\end{Verbatim}

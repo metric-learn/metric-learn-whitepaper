@@ -15,7 +15,7 @@
 \usepackage{subcaption}
 \usepackage{stmaryrd}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{jmlr2e}
+\usepackage[abbrvbib]{jmlr2e} % I moved this here because figure caption did not render well see the last point of http://www.jmlr.org/format/formatting-errors.html
 \newcommand{\aurelien}[1]{\todo[inline,caption={},color=orange!40]{{\it Aurelien:~}#1}}
 \newcommand{\william}[1]{\todo[inline,caption={},color=blue!40]{{\it William:~}#1}}
 %\renewcommand{\aurelien}[1]{}
@@ -29,7 +29,7 @@
 
 \newcommand{\dataset}{{\cal D}}
 \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
-\abbrvbib
+
 \usepackage{lastpage}
 \jmlrheading{21}{2020}{1-\pageref{LastPage}}{8/19; Revised
 7/20}{7/20}{19-678}{William de Vazelhes and CJ Carey and Yuan Tang and Nathalie Vauquier and Aur\'elien Bellet}
@@ -70,7 +70,7 @@
 \end{abstract}
 
 \begin{keywords}
-  Machine Learning, Python, Metric Learning, Scikit-learn
+  machine learning, python, metric learning, scikit-learn
 \end{keywords}
 
 \section{Introduction}
@@ -364,7 +364,6 @@ We also plan to incorporate recent algorithms that provide added value to the pa
 %\aurelien{if possible, mention algorithms that learn other metrics (similarity, nonlinear, local..}
 
 \acks
-
 We are thankful to Inria for funding 2 years of development. We also thank \texttt{scikit-learn} developers from the Inria Parietal team (in particular Gaël Varoquaux, Alexandre Gramfort and Olivier Grisel) for fruitful discussions on the design of the API and funding to attend SciPy 2019, as well as \texttt{scikit-learn-contrib} reviewers for their valuable feedback.
 
 

@@ -65,7 +65,7 @@
 \maketitle
 
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
-\texttt{metric-learn} is an open source Python package implementing supervised and weakly-supervised distance metric learning algorithms. As part of \texttt{scikit-learn-contrib}, it provides a unified interface compatible with \texttt{scikit-learn} which allows to easily perform cross-validation, model selection, and pipelining with other machine learning estimators. \texttt{metric-learn} is thoroughly tested and available on PyPi under the MIT licence.
+\texttt{metric-learn} is an open source Python package implementing supervised and weakly-supervised distance metric learning algorithms. As part of \texttt{scikit-learn-contrib}, it provides a unified interface compatible with \texttt{scikit-learn} which allows to easily perform cross-validation, model selection, and pipelining with other machine learning estimators. \texttt{metric-learn} is thoroughly tested and available on PyPi under the MIT license.
 %The source code is available online at \url{http://github.com/scikit-learn-contrib/metric-learn}, as well as the documentation at \url{http://metric-learn.github.io/metric-learn/}.
 \end{abstract}
 
@@ -329,7 +329,7 @@ In order to \texttt{predict} the labels of new pairs, one needs to set a thresho
 This threshold can be set manually or automatically calibrated (at fit time or afterwards on a validation set) to optimize a given score such as accuracy or F1-score using the method \texttt{calibrate\_threshold}.
 Triplet learners work on array-like of shape \texttt{(n\_triplets, 3, n\_features)}, where for each triplet we want the first element to be closer to the second than to the third one.
 Quadruplet learners work on array-like of shape \texttt{(n\_quadruplets, 4, n\_features)}, where for each quadruplet we want the two first elements to be closer together than the two last ones. Both triplet and quadruplet learners can naturally \texttt{predict} whether a new triplet/quadruplet is in the right order by comparing the two pairwise distances.
-To illustrate the weakly-supervised learning API, the following code snippet computes cross validation scores for MMC on pairs from Labeled Faces in the Wild \citep{Huang12}. Thanks to our unified interface, MMC can be switched for another pair learner wihtout changing the rest of the code below.
+To illustrate the weakly-supervised learning API, the following code snippet computes cross validation scores for MMC on pairs from Labeled Faces in the Wild \citep{Huang12}. Thanks to our unified interface, MMC can be switched for another pair learner without changing the rest of the code below.
 \begin{minted}[%linenos=TRUE,
 fontsize=\footnotesize]{python}
 from sklearn.datasets import fetch_lfw_pairs 
